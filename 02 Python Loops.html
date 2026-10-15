@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Loops — Beginner Tutorial</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: #ffffff;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* ── Skip link (accessibility) ── */
+  .skip-link {
+    position: absolute; top: -100px; left: 1rem; z-index: 999;
+    background: #185FA5; color: #fff; padding: 8px 16px;
+    border-radius: 6px; font-size: 14px; text-decoration: none;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 1rem; }
+
+  /* ── Progress bar ── */
+  #progress-bar {
+    position: sticky; top: 0; z-index: 100;
+    height: 4px; background: #e8e8e8;
+  }
+  #progress-fill {
+    height: 100%; width: 0%; background: #185FA5;
+    transition: width 0.3s ease;
+  }
+
+  /* ── Layout ── */
+  .wrapper { max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── Header ── */
+  .tutorial-header {
+    border-bottom: 2px solid #185FA5;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .tutorial-header .eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #185FA5; margin-bottom: 6px;
+  }
+  .tutorial-header h1 {
+    font-size: 2rem; font-weight: 700; color: #0a0a0a; line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .tutorial-header .tagline {
+    font-size: 1rem; color: #555; margin-bottom: 1rem;
+  }
+  .meta-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    font-size: 12px; font-weight: 500; padding: 3px 10px;
+    border-radius: 20px; border: 1px solid;
+  }
+  .pill-blue   { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
+  .pill-green  { background: #EAF3DE; color: #27500A; border-color: #C0DD97; }
+  .pill-amber  { background: #FAEEDA; color: #633806; border-color: #FAC775; }
+
+  /* ── Table of contents ── */
+  .toc {
+    background: #f8f8f8; border: 1px solid #e0e0e0;
+    border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;
+  }
+  .toc h2 { font-size: 14px; font-weight: 600; color: #555; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .toc ol { padding-left: 1.25rem; }
+  .toc li { margin: 4px 0; }
+  .toc a { color: #185FA5; text-decoration: none; font-size: 14px; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 3rem; }
+  .section-title {
+    font-size: 1.4rem; font-weight: 700; color: #0a0a0a;
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px;
+    padding-bottom: 8px; border-bottom: 1.5px solid #e8e8e8;
+  }
+  .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: #185FA5; color: #fff; font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section p { font-size: 15px; color: #333; margin-bottom: 0.75rem; }
+
+  /* ── Info / tip / warning boxes ── */
+  .callout {
+    border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0;
+    font-size: 14px; border-left: 4px solid;
+  }
+  .callout-info    { background: #E6F1FB; border-color: #185FA5; color: #0C447C; }
+  .callout-tip     { background: #EAF3DE; border-color: #3B6D11; color: #27500A; }
+  .callout-caution { background: #FAEEDA; border-color: #BA7517; color: #633806; }
+  .callout strong  { font-weight: 600; }
+
+  /* ── Code blocks ── */
+  .code-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; color: #888; margin-bottom: 4px;
+  }
+  pre {
+    background: #f4f4f4; border: 1px solid #e0e0e0;
+    border-radius: 8px; padding: 1rem 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px; line-height: 1.8; overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  .kw  { color: #185FA5; font-weight: 600; }
+  .fn  { color: #3B6D11; }
+  .num { color: #BA7517; }
+  .str { color: #993556; }
+  .cm  { color: #888; font-style: italic; }
+  .hl  { background: #fff3cd; border-radius: 2px; padding: 0 2px; }
+
+  /* ── Syntax anatomy diagram ── */
+  .anatomy {
+    background: #f9f9f9; border: 1px solid #e0e0e0;
+    border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1rem 0;
+  }
+  .anatomy pre { background: transparent; border: none; margin-bottom: 0.5rem; }
+  .anatomy-labels { display: grid; gap: 6px; margin-top: 8px; }
+  .anatomy-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; }
+  .anatomy-dot {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+  }
+  .dot-blue   { background: #185FA5; }
+  .dot-green  { background: #3B6D11; }
+  .dot-amber  { background: #BA7517; }
+  .dot-pink   { background: #993556; }
+  .anatomy-row span { color: #444; line-height: 1.5; }
+  .anatomy-row strong { color: #1a1a1a; }
+
+  /* ── Interactive runner ── */
+  .runner {
+    border: 1px solid #e0e0e0; border-radius: 10px;
+    overflow: hidden; margin: 1rem 0;
+  }
+  .runner-header {
+    background: #f0f0f0; border-bottom: 1px solid #e0e0e0;
+    padding: 8px 14px; display: flex; align-items: center;
+    justify-content: space-between;
+  }
+  .runner-header span { font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.06em; }
+  .runner-header .dot-row { display: flex; gap: 6px; }
+  .runner-header .dot-row span {
+    width: 10px; height: 10px; border-radius: 50%;
+    display: inline-block; font-size: 0;
+  }
+  .d1 { background: #f07b72; }
+  .d2 { background: #f5c842; }
+  .d3 { background: #5ac379; }
+  .runner-body { display: grid; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 560px) { .runner-body { grid-template-columns: 1fr; } }
+  .runner-code { padding: 1rem; border-right: 1px solid #e0e0e0; background: #fafafa; }
+  .runner-output { padding: 1rem; background: #fff; }
+  .runner-code pre, .runner-output pre {
+    background: transparent; border: none; padding: 0; margin: 0;
+    font-size: 13px;
+  }
+  .out-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .output-text { color: #1a1a1a; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8; }
+
+  /* ── Interactive playground ── */
+  .playground {
+    border: 2px solid #B5D4F4; border-radius: 10px;
+    overflow: hidden; margin: 1rem 0;
+  }
+  .playground-header {
+    background: #E6F1FB; padding: 10px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #B5D4F4;
+  }
+  .playground-header span {
+    font-size: 13px; font-weight: 600; color: #0C447C;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .run-btn {
+    background: #185FA5; color: #fff; border: none;
+    padding: 6px 16px; border-radius: 6px; font-size: 13px;
+    font-weight: 600; cursor: pointer; transition: background 0.15s;
+  }
+  .run-btn:hover { background: #0C447C; }
+  .run-btn:focus { outline: 3px solid #B5D4F4; outline-offset: 2px; }
+  textarea.playground-editor {
+    width: 100%; padding: 1rem; font-family: 'Courier New', monospace;
+    font-size: 13px; line-height: 1.8; border: none; resize: vertical;
+    min-height: 120px; background: #fafafa; color: #1a1a1a;
+    border-bottom: 1px solid #B5D4F4; outline: none;
+  }
+  .playground-out {
+    padding: 1rem; min-height: 60px; background: #fff;
+  }
+  .playground-out .out-label { margin-bottom: 6px; }
+  .playground-result { font-family: 'Courier New', monospace; font-size: 13px; color: #1a1a1a; line-height: 1.8; }
+  .playground-result.error { color: #A32D2D; }
+
+  /* ── Quiz ── */
+  .quiz {
+    background: #fafafa; border: 1px solid #e0e0e0;
+    border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+  }
+  .quiz h3 { font-size: 15px; font-weight: 600; margin-bottom: 1rem; color: #0a0a0a; }
+  .quiz-options { display: grid; gap: 8px; }
+  .quiz-option {
+    background: #fff; border: 1.5px solid #ddd;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 14px; cursor: pointer; text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: inherit; color: #1a1a1a;
+  }
+  .quiz-option:hover { border-color: #185FA5; background: #E6F1FB; }
+  .quiz-option:focus { outline: 3px solid #B5D4F4; outline-offset: 2px; }
+  .quiz-option.correct { background: #EAF3DE; border-color: #3B6D11; color: #27500A; font-weight: 600; }
+  .quiz-option.wrong   { background: #FCEBEB; border-color: #A32D2D; color: #791F1F; }
+  .quiz-feedback {
+    margin-top: 10px; font-size: 14px; font-weight: 500; display: none;
+    padding: 8px 12px; border-radius: 6px;
+  }
+  .quiz-feedback.show { display: block; }
+  .feedback-correct { background: #EAF3DE; color: #27500A; }
+  .feedback-wrong   { background: #FCEBEB; color: #791F1F; }
+  .quiz-reset { margin-top: 8px; font-size: 13px; color: #185FA5; background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; display: none; }
+  .quiz-reset.show { display: inline; }
+
+  /* ── Fill-in-the-blank ── */
+  .fitb { margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 14px; line-height: 2; }
+  .fitb-input {
+    background: #fff; border: 2px solid #185FA5; border-radius: 4px;
+    padding: 2px 8px; font-family: 'Courier New', monospace; font-size: 14px;
+    color: #1a1a1a; width: 120px; text-align: center;
+  }
+  .fitb-input:focus { outline: 3px solid #B5D4F4; outline-offset: 1px; }
+  .fitb-check {
+    background: #185FA5; color: #fff; border: none;
+    padding: 5px 14px; border-radius: 6px; font-size: 13px;
+    font-weight: 600; cursor: pointer; margin-left: 10px;
+  }
+  .fitb-check:hover { background: #0C447C; }
+  .fitb-feedback { font-family: sans-serif; font-size: 13px; margin-top: 6px; font-weight: 500; }
+  .fitb-correct { color: #27500A; }
+  .fitb-wrong   { color: #A32D2D; }
+
+  /* ── Summary card ── */
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 1rem; }
+  .summary-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;
+    padding: 1rem; border-top: 3px solid #185FA5;
+  }
+  .summary-card h4 { font-size: 14px; font-weight: 600; color: #185FA5; margin-bottom: 6px; }
+  .summary-card pre { background: #f4f4f4; border: none; padding: 8px 10px; font-size: 12px; margin: 0; }
+
+  /* ── Next steps ── */
+  .next-steps {
+    background: #E6F1FB; border-radius: 10px;
+    padding: 1.25rem 1.5rem; margin-top: 2rem; border-left: 4px solid #185FA5;
+  }
+  .next-steps h3 { font-size: 15px; font-weight: 600; color: #0C447C; margin-bottom: 8px; }
+  .next-steps ul { padding-left: 1.2rem; }
+  .next-steps li { font-size: 14px; color: #185FA5; margin: 4px 0; }
+
+  /* ── Accessibility ── */
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  :focus-visible { outline: 3px solid #185FA5; outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div id="progress-bar" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+  <div id="progress-fill"></div>
+</div>
+
+<div class="wrapper" id="main-content">
+
+  <!-- Header -->
+  <header class="tutorial-header">
+
+    <h1>Understanding loops</h1>
+    <p class="tagline">Learn how to make Python repeat things — the easy way.</p>
+    <div class="meta-pills">
+      <span class="pill pill-blue">Beginner</span>
+      <span class="pill pill-green">Python 3</span>
+      <span class="pill pill-amber">~15 min read</span>
+    </div>
+  </header>
+
+  <!-- Table of contents -->
+  <nav class="toc" aria-label="Table of contents">
+    <h2>In this tutorial</h2>
+    <ol>
+      <li><a href="#what-is-a-loop">What is a loop?</a></li>
+      <li><a href="#for-loop">The <code>for</code> loop</a></li>
+      <li><a href="#range">Using <code>range()</code></a></li>
+      <li><a href="#while-loop">The <code>while</code> loop</a></li>
+      <li><a href="#break-continue"><code>break</code> and <code>continue</code></a></li>
+      <li><a href="#practice">Practice exercises</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ol>
+  </nav>
+
+  <!-- Section 1: What is a loop -->
+  <section class="section" id="what-is-a-loop" aria-labelledby="s1-title">
+    <h2 class="section-title" id="s1-title">
+      <span class="section-num" aria-hidden="true">1</span>
+      What is a loop?
+    </h2>
+    <p>Imagine you want to say "Good morning!" five times. You could write five separate lines — but that is boring and slow. A <strong>loop</strong> lets you write the action <em>once</em> and tell Python how many times to repeat it.</p>
+    <p>Loops are one of the most useful tools in programming. You will use them constantly.</p>
+
+    <div class="callout callout-info">
+      <strong>Real-life analogy:</strong> Think of a loop like a song on repeat. You press play once, and the music keeps going until you say stop.
+    </div>
+
+    <p>Python has two main types of loops:</p>
+    <ul style="padding-left:1.4rem; font-size:15px; color:#333; margin-bottom:0.75rem;">
+      <li style="margin:4px 0;"><strong><code>for</code> loop</strong> — repeat a fixed number of times, or go through a list</li>
+      <li style="margin:4px 0;"><strong><code>while</code> loop</strong> — keep repeating as long as something is true</li>
+    </ul>
+  </section>
+
+  <!-- Section 2: for loop -->
+  <section class="section" id="for-loop" aria-labelledby="s2-title">
+    <h2 class="section-title" id="s2-title">
+      <span class="section-num" aria-hidden="true">2</span>
+      The <code>for</code> loop
+    </h2>
+    <p>A <code>for</code> loop goes through a collection of items one by one and runs the same code for each item.</p>
+
+    <!-- Anatomy -->
+    <div class="anatomy" role="region" aria-label="for loop structure diagram">
+      <p style="font-size:13px; color:#555; margin-bottom:8px; font-weight:600;">Basic structure:</p>
+      <pre><span style="color:#185FA5;font-weight:600">for</span> <span style="color:#BA7517">item</span> <span style="color:#185FA5;font-weight:600">in</span> <span style="color:#993556">collection</span><span style="color:#1a1a1a">:</span>
+    <span style="color:#3B6D11">print(item)</span>    <span style="color:#888; font-style:italic"># indented code runs each time</span></pre>
+      <div class="anatomy-labels" aria-label="Explanation of each part">
+        <div class="anatomy-row">
+          <div class="anatomy-dot dot-blue" aria-hidden="true"></div>
+          <span><strong>for</strong> — the keyword that starts the loop</span>
+        </div>
+        <div class="anatomy-row">
+          <div class="anatomy-dot dot-amber" aria-hidden="true"></div>
+          <span><strong>item</strong> — a variable that holds the current value each time around</span>
+        </div>
+        <div class="anatomy-row">
+          <div class="anatomy-dot dot-pink" aria-hidden="true"></div>
+          <span><strong>collection</strong> — the list of things to loop through</span>
+        </div>
+        <div class="anatomy-row">
+          <div class="anatomy-dot dot-green" aria-hidden="true"></div>
+          <span><strong>indented code</strong> — the action to run for each item (always indented with 4 spaces or a tab)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 1 -->
+    <p style="margin-top:1.25rem;">Here is the simplest example — looping through a list of names:</p>
+    <div class="runner" role="region" aria-label="Code example: loop through names">
+      <div class="runner-header">
+        <div class="dot-row" aria-hidden="true"><span class="d1">•</span><span class="d2">•</span><span class="d3">•</span></div>
+        <span>Example 1 — loop through a list</span>
+        <span></span>
+      </div>
+      <div class="runner-body">
+        <div class="runner-code">
+          <div class="out-label">code</div>
+          <pre><span class="hl">names</span> = [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Carol"</span>]
+
+<span class="kw">for</span> name <span class="kw">in</span> names:
+    <span class="fn">print</span>(name)</pre>
+        </div>
+        <div class="runner-output">
+          <div class="out-label">output</div>
+          <div class="output-text">Alice
+Bob
+Carol</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <strong>Remember:</strong> The code inside the loop must be indented (pushed in by 4 spaces). Python uses indentation to know what belongs inside the loop.
+    </div>
+
+    <!-- Example 2 -->
+    <p>You can loop through numbers too:</p>
+    <div class="runner" role="region" aria-label="Code example: loop through numbers">
+      <div class="runner-header">
+        <div class="dot-row" aria-hidden="true"><span class="d1">•</span><span class="d2">•</span><span class="d3">•</span></div>
+        <span>Example 2 — loop through a list of numbers</span>
+        <span></span>
+      </div>
+      <div class="runner-body">
+        <div class="runner-code">
+          <div class="out-label">code</div>
+          <pre>scores = [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>]
+
+<span class="kw">for</span> score <span class="kw">in</span> scores:
+    <span class="fn">print</span>(<span class="str">"Score:"</span>, score)</pre>
+        </div>
+        <div class="runner-output">
+          <div class="out-label">output</div>
+          <div class="output-text">Score: 10
+Score: 20
+Score: 30</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz 1 -->
+    <div class="quiz" role="region" aria-label="Quiz 1">
+      <h3>Quick check — what is the output of this loop?<br><code style="font-size:13px;">for x in [1, 2, 3]: print(x)</code></h3>
+      <div class="quiz-options" role="list">
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'wrong','q1')" aria-label="Option: 1 2 3 on one line">1 2 3 (on one line)</button>
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'correct','q1')" aria-label="Option: 1 then 2 then 3 each on a new line">1 then 2 then 3, each on a new line</button>
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'wrong','q1')" aria-label="Option: nothing">Nothing, it causes an error</button>
+      </div>
+      <div id="q1-feedback" class="quiz-feedback" role="alert"></div>
+      <button class="quiz-reset" id="q1-reset" onclick="resetQuiz('q1')">Try again</button>
+    </div>
+  </section>
+
+  <!-- Section 3: range() -->
+  <section class="section" id="range" aria-labelledby="s3-title">
+    <h2 class="section-title" id="s3-title">
+      <span class="section-num" aria-hidden="true">3</span>
+      Using <code>range()</code>
+    </h2>
+    <p>You do not always have a list ready. When you just want to repeat something a certain number of times, use <code>range()</code>. It generates a sequence of numbers for you.</p>
+
+    <div class="anatomy" role="region" aria-label="range() variations">
+      <p style="font-size:13px; color:#555; margin-bottom:8px; font-weight:600;">Three ways to use range():</p>
+      <pre><span class="fn">range</span>(<span class="num">5</span>)          <span class="cm"># 0, 1, 2, 3, 4  (start at 0)</span>
+<span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>)       <span class="cm"># 1, 2, 3, 4, 5  (start at 1)</span>
+<span class="fn">range</span>(<span class="num">0</span>, <span class="num">10</span>, <span class="num">2</span>)   <span class="cm"># 0, 2, 4, 6, 8  (count by 2)</span></pre>
+      <div class="anatomy-labels">
+        <div class="anatomy-row"><div class="anatomy-dot dot-blue" aria-hidden="true"></div><span><strong>range(stop)</strong> — starts at 0, stops before the number you give</span></div>
+        <div class="anatomy-row"><div class="anatomy-dot dot-amber" aria-hidden="true"></div><span><strong>range(start, stop)</strong> — starts at <em>start</em>, stops before <em>stop</em></span></div>
+        <div class="anatomy-row"><div class="anatomy-dot dot-green" aria-hidden="true"></div><span><strong>range(start, stop, step)</strong> — jumps by <em>step</em> each time</span></div>
+      </div>
+    </div>
+
+    <div class="runner" role="region" aria-label="Code example: range loop">
+      <div class="runner-header">
+        <div class="dot-row" aria-hidden="true"><span class="d1">•</span><span class="d2">•</span><span class="d3">•</span></div>
+        <span>Example 3 — count from 1 to 5</span>
+        <span></span>
+      </div>
+      <div class="runner-body">
+        <div class="runner-code">
+          <div class="out-label">code</div>
+          <pre><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    <span class="fn">print</span>(i)</pre>
+        </div>
+        <div class="runner-output">
+          <div class="out-label">output</div>
+          <div class="output-text">1
+2
+3
+4
+5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive range playground -->
+    <p>Try changing the numbers in <code>range()</code> and see what happens:</p>
+    <div class="playground" role="region" aria-label="Interactive range() playground">
+      <div class="playground-header">
+        <span>&#9654; Try it yourself</span>
+        <button class="run-btn" onclick="runPlayground('pg1')" aria-label="Run code in playground 1">Run</button>
+      </div>
+      <textarea class="playground-editor" id="pg1-code" aria-label="Code editor — try changing the range values" spellcheck="false">for i in range(1, 6):
+    print(i)</textarea>
+      <div class="playground-out">
+        <div class="out-label">output</div>
+        <div class="playground-result" id="pg1-output" aria-live="polite">Click Run to see the output.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-caution">
+      <strong>Watch out:</strong> <code>range(5)</code> gives you <code>0, 1, 2, 3, 4</code> — it stops <em>before</em> 5, not at 5. If you want 1 to 5, write <code>range(1, 6)</code>.
+    </div>
+
+    <!-- Fill in the blank 1 -->
+    <p>Fill in the blank to print the numbers 0, 2, 4, 6, 8:</p>
+    <div class="fitb" aria-label="Fill in the blank exercise 1">
+      <code>for i in range(0, 10, </code><input class="fitb-input" id="fitb1" aria-label="Fill in the step value" placeholder="?"><code>):</code><br>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;print(i)</code>
+      <button class="fitb-check" onclick="checkFitb('fitb1','2','fitb1-fb')" aria-label="Check your answer">Check</button>
+      <div id="fitb1-fb" class="fitb-feedback" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Section 4: while loop -->
+  <section class="section" id="while-loop" aria-labelledby="s4-title">
+    <h2 class="section-title" id="s4-title">
+      <span class="section-num" aria-hidden="true">4</span>
+      The <code>while</code> loop
+    </h2>
+    <p>A <code>while</code> loop keeps running <em>as long as</em> a condition is true. You use it when you do not know in advance how many times to repeat.</p>
+
+    <div class="anatomy" role="region" aria-label="while loop structure">
+      <p style="font-size:13px; color:#555; margin-bottom:8px; font-weight:600;">Basic structure:</p>
+      <pre><span class="kw">while</span> <span style="color:#BA7517">condition</span>:
+    <span style="color:#3B6D11">do something</span>
+    <span style="color:#3B6D11">update the condition</span></pre>
+      <div class="anatomy-labels">
+        <div class="anatomy-row"><div class="anatomy-dot dot-blue" aria-hidden="true"></div><span><strong>while</strong> — the keyword that starts the loop</span></div>
+        <div class="anatomy-row"><div class="anatomy-dot dot-amber" aria-hidden="true"></div><span><strong>condition</strong> — something that is either True or False. Loop runs while it is True</span></div>
+        <div class="anatomy-row"><div class="anatomy-dot dot-green" aria-hidden="true"></div><span><strong>update</strong> — you must change something inside the loop, otherwise it runs forever</span></div>
+      </div>
+    </div>
+
+    <div class="runner" role="region" aria-label="Code example: while loop">
+      <div class="runner-header">
+        <div class="dot-row" aria-hidden="true"><span class="d1">•</span><span class="d2">•</span><span class="d3">•</span></div>
+        <span>Example 4 — count to 3 with while</span>
+        <span></span>
+      </div>
+      <div class="runner-body">
+        <div class="runner-code">
+          <div class="out-label">code</div>
+          <pre>count = <span class="num">1</span>
+
+<span class="kw">while</span> count <= <span class="num">3</span>:
+    <span class="fn">print</span>(count)
+    count = count + <span class="num">1</span></pre>
+        </div>
+        <div class="runner-output">
+          <div class="out-label">output</div>
+          <div class="output-text">1
+2
+3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-caution">
+      <strong>Warning — infinite loops:</strong> If you forget to update the variable inside a <code>while</code> loop, it will run forever and freeze your program. Always make sure the condition can eventually become False.
+    </div>
+
+    <!-- Interactive while playground -->
+    <div class="playground" role="region" aria-label="Interactive while loop playground">
+      <div class="playground-header">
+        <span>&#9654; Try it yourself</span>
+        <button class="run-btn" onclick="runPlayground('pg2')" aria-label="Run code in playground 2">Run</button>
+      </div>
+      <textarea class="playground-editor" id="pg2-code" aria-label="While loop code editor" spellcheck="false">count = 1
+while count <= 5:
+    print("count is", count)
+    count = count + 1</textarea>
+      <div class="playground-out">
+        <div class="out-label">output</div>
+        <div class="playground-result" id="pg2-output" aria-live="polite">Click Run to see the output.</div>
+      </div>
+    </div>
+
+    <!-- Quiz 2 -->
+    <div class="quiz" role="region" aria-label="Quiz 2">
+      <h3>Quick check — what happens if you remove <code>count = count + 1</code> from the while loop above?</h3>
+      <div class="quiz-options" role="list">
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'wrong','q2')">The loop runs once and stops</button>
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'correct','q2')">The loop runs forever (infinite loop)</button>
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'wrong','q2')">Python shows an error immediately</button>
+      </div>
+      <div id="q2-feedback" class="quiz-feedback" role="alert"></div>
+      <button class="quiz-reset" id="q2-reset" onclick="resetQuiz('q2')">Try again</button>
+    </div>
+  </section>
+
+  <!-- Section 5: break and continue -->
+  <section class="section" id="break-continue" aria-labelledby="s5-title">
+    <h2 class="section-title" id="s5-title">
+      <span class="section-num" aria-hidden="true">5</span>
+      <code>break</code> and <code>continue</code>
+    </h2>
+    <p>Two special keywords let you control what happens inside a loop:</p>
+
+    <div class="runner" role="region" aria-label="Code example: break keyword">
+      <div class="runner-header">
+        <div class="dot-row" aria-hidden="true"><span class="d1">•</span><span class="d2">•</span><span class="d3">•</span></div>
+        <span>Example 5 — break: stop the loop early</span>
+        <span></span>
+      </div>
+      <div class="runner-body">
+        <div class="runner-code">
+          <div class="out-label">code</div>
+          <pre><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    <span class="kw">if</span> i == <span class="num">3</span>:
+        <span class="kw">break</span>
+    <span class="fn">print</span>(i)</pre>
+        </div>
+        <div class="runner-output">
+          <div class="out-label">output</div>
+          <div class="output-text">1
+2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-bottom:1rem;">
+      <strong>break</strong> exits the loop completely when it is reached. The number 3 is never printed because the loop stops before <code>print(i)</code> runs.
+    </div>
+
+    <div class="runner" role="region" aria-label="Code example: continue keyword">
+      <div class="runner-header">
+        <div class="dot-row" aria-hidden="true"><span class="d1">•</span><span class="d2">•</span><span class="d3">•</span></div>
+        <span>Example 6 — continue: skip one turn</span>
+        <span></span>
+      </div>
+      <div class="runner-body">
+        <div class="runner-code">
+          <div class="out-label">code</div>
+          <pre><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    <span class="kw">if</span> i == <span class="num">3</span>:
+        <span class="kw">continue</span>
+    <span class="fn">print</span>(i)</pre>
+        </div>
+        <div class="runner-output">
+          <div class="out-label">output</div>
+          <div class="output-text">1
+2
+4
+5</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <strong>continue</strong> skips the rest of the current turn and jumps to the next one. The number 3 is skipped, but the loop keeps going.
+    </div>
+
+    <!-- Fill in the blank 2 -->
+    <p>Fill in the blank: to skip printing a number when it equals 2, which keyword do you use?</p>
+    <div class="fitb" aria-label="Fill in the blank exercise 2">
+      <code>for i in range(1, 5):</code><br>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;if i == 2:</code><br>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><input class="fitb-input" id="fitb2" aria-label="Fill in the keyword" placeholder="?">
+      <button class="fitb-check" onclick="checkFitb('fitb2','continue','fitb2-fb')">Check</button>
+      <div id="fitb2-fb" class="fitb-feedback" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Section 6: Practice -->
+  <section class="section" id="practice" aria-labelledby="s6-title">
+    <h2 class="section-title" id="s6-title">
+      <span class="section-num" aria-hidden="true">6</span>
+      Practice exercises
+    </h2>
+    <p>Try writing these yourself in the playgrounds below. There is no single right answer — experiment!</p>
+
+    <p><strong>Exercise A:</strong> Print the numbers 1 to 10 using a <code>for</code> loop and <code>range()</code>.</p>
+    <div class="playground" role="region" aria-label="Practice playground A">
+      <div class="playground-header">
+        <span>&#9654; Exercise A</span>
+        <button class="run-btn" onclick="runPlayground('pgA')" aria-label="Run Exercise A">Run</button>
+      </div>
+      <textarea class="playground-editor" id="pgA-code" aria-label="Exercise A code editor" spellcheck="false"># Write your code here
+for i in range(1, 11):
+    print(i)</textarea>
+      <div class="playground-out">
+        <div class="out-label">output</div>
+        <div class="playground-result" id="pgA-output" aria-live="polite">Click Run to see the output.</div>
+      </div>
+    </div>
+
+    <p><strong>Exercise B:</strong> Use a <code>while</code> loop to count down from 5 to 1, then print "Blast off!".</p>
+    <div class="playground" role="region" aria-label="Practice playground B">
+      <div class="playground-header">
+        <span>&#9654; Exercise B</span>
+        <button class="run-btn" onclick="runPlayground('pgB')" aria-label="Run Exercise B">Run</button>
+      </div>
+      <textarea class="playground-editor" id="pgB-code" aria-label="Exercise B code editor" spellcheck="false"># Write your code here
+n = 5
+while n >= 1:
+    print(n)
+    n = n - 1
+print("Blast off!")</textarea>
+      <div class="playground-out">
+        <div class="out-label">output</div>
+        <div class="playground-result" id="pgB-output" aria-live="polite">Click Run to see the output.</div>
+      </div>
+    </div>
+
+    <!-- Quiz 3 -->
+    <div class="quiz" role="region" aria-label="Quiz 3">
+      <h3>Final check — which loop is best when you know exactly how many times to repeat?</h3>
+      <div class="quiz-options" role="list">
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'correct','q3')">for loop</button>
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'wrong','q3')">while loop</button>
+        <button class="quiz-option" role="listitem" onclick="checkQuiz(this,'wrong','q3')">Both are equally good in all cases</button>
+      </div>
+      <div id="q3-feedback" class="quiz-feedback" role="alert"></div>
+      <button class="quiz-reset" id="q3-reset" onclick="resetQuiz('q3')">Try again</button>
+    </div>
+  </section>
+
+  <!-- Section 7: Summary -->
+  <section class="section" id="summary" aria-labelledby="s7-title">
+    <h2 class="section-title" id="s7-title">
+      <span class="section-num" aria-hidden="true">7</span>
+      Summary
+    </h2>
+  <div class="summary-grid" role="list">
+      <div class="summary-card" role="listitem">
+        <h4>for loop</h4>
+        <pre><span class="kw">for</span> item <span class="kw">in</span> collection:
+    <span class="fn">print</span>(item)</pre>
+        <p style="font-size:13px;color:#555;margin-top:8px;">Best when you know what to loop through.</p>
+      </div>
+      <div class="summary-card" role="listitem">
+        <h4>range()</h4>
+        <pre><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(1, 6):
+    <span class="fn">print</span>(i)</pre>
+        <p style="font-size:13px;color:#555;margin-top:8px;">Generates a number sequence for you.</p>
+      </div>
+      <div class="summary-card" role="listitem">
+        <h4>while loop</h4>
+        <pre>count = 1
+<span class="kw">while</span> count <= 5:
+    count += 1</pre>
+        <p style="font-size:13px;color:#555;margin-top:8px;">Best when repeating until a condition is met.</p>
+      </div>
+      <div class="summary-card" role="listitem">
+        <h4>break &amp; continue</h4>
+        <pre><span class="kw">break</span>     <span class="cm"># stop loop</span>
+<span class="kw">continue</span>  <span class="cm"># skip turn</span></pre>
+        <p style="font-size:13px;color:#555;margin-top:8px;">Control what happens inside a loop.</p>
+      </div>
+    </div>
+
+ 
+  </section>
+
+</div>
+
+<script>
+/* ── Progress bar ── */
+window.addEventListener('scroll', function() {
+  var doc = document.documentElement;
+  var scrolled = doc.scrollTop || document.body.scrollTop;
+  var total = doc.scrollHeight - doc.clientHeight;
+  var pct = total > 0 ? Math.round((scrolled / total) * 100) : 0;
+  var fill = document.getElementById('progress-fill');
+  var bar = document.getElementById('progress-bar');
+  fill.style.width = pct + '%';
+  bar.setAttribute('aria-valuenow', pct);
+});
+
+/* ── Simple Python simulator ── */
+function simulatePython(code) {
+  var lines = code.split('\n');
+  var output = [];
+  var vars = {};
+  var MAX = 200;
+  var lineCount = 0;
+
+  function evalExpr(expr, ctx) {
+    expr = expr.trim();
+    // string
+    if ((expr.startsWith('"') && expr.endsWith('"')) || (expr.startsWith("'") && expr.endsWith("'"))) {
+      return expr.slice(1,-1);
+    }
+    // number
+    if (!isNaN(Number(expr))) return Number(expr);
+    // variable
+    if (ctx.hasOwnProperty(expr)) return ctx[expr];
+    if (vars.hasOwnProperty(expr)) return vars[expr];
+    // list literal
+    if (expr.startsWith('[') && expr.endsWith(']')) {
+      var inner = expr.slice(1,-1).trim();
+      if (!inner) return [];
+      return inner.split(',').map(function(e){ return evalExpr(e.trim(), ctx); });
+    }
+    // arithmetic +
+    var plusIdx = expr.lastIndexOf('+');
+    if (plusIdx > 0) {
+      var l = evalExpr(expr.slice(0,plusIdx), ctx);
+      var r = evalExpr(expr.slice(plusIdx+1), ctx);
+      return l + r;
+    }
+    // arithmetic -
+    var minIdx = expr.lastIndexOf('-');
+    if (minIdx > 0) {
+      var l = evalExpr(expr.slice(0,minIdx), ctx);
+      var r = evalExpr(expr.slice(minIdx+1), ctx);
+      return l - r;
+    }
+    // arithmetic *
+    var mulIdx = expr.lastIndexOf('*');
+    if (mulIdx > 0) {
+      var l = evalExpr(expr.slice(0,mulIdx), ctx);
+      var r = evalExpr(expr.slice(mulIdx+1), ctx);
+      return l * r;
+    }
+    return expr;
+  }
+
+  function runPrint(argsStr, ctx) {
+    var parts = [];
+    var buf = '', depth = 0, inStr = false, strChar = '';
+    for (var i = 0; i < argsStr.length; i++) {
+      var c = argsStr[i];
+      if (inStr) {
+        if (c === strChar) inStr = false;
+        else buf += c;
+      } else if (c === '"' || c === "'") {
+        inStr = true; strChar = c;
+      } else if (c === '(' || c === '[') { depth++; buf += c; }
+      else if (c === ')' || c === ']') { depth--; buf += c; }
+      else if (c === ',' && depth === 0) {
+        parts.push(evalExpr(buf.trim(), ctx)); buf = '';
+      } else { buf += c; }
+    }
+    if (buf.trim()) parts.push(evalExpr(buf.trim(), ctx));
+    output.push(parts.join(' '));
+  }
+
+  function parseRange(argsStr) {
+    var args = argsStr.split(',').map(function(a){ return parseInt(a.trim(), 10); });
+    var start = args.length >= 2 ? args[0] : 0;
+    var stop  = args.length >= 2 ? args[1] : args[0];
+    var step  = args.length >= 3 ? args[2] : 1;
+    var result = [];
+    if (step > 0) { for (var i=start; i<stop; i+=step) result.push(i); }
+    else          { for (var i=start; i>stop; i+=step) result.push(i); }
+    return result;
+  }
+
+  function getIndent(line) { var m = line.match(/^(\s*)/); return m ? m[1].length : 0; }
+
+  function execLines(lns, ctx) {
+    var i = 0;
+    while (i < lns.length) {
+      if (++lineCount > MAX) { output.push('[stopped: too many iterations]'); return; }
+      var line = lns[i];
+      var trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) { i++; continue; }
+      var indent = getIndent(line);
+
+      // for loop
+      var forMatch = trimmed.match(/^for\s+(\w+)\s+in\s+(.+):$/);
+      if (forMatch) {
+        var varName = forMatch[1];
+        var iterExpr = forMatch[2].trim();
+        var collection;
+        var rangeMatch = iterExpr.match(/^range\((.+)\)$/);
+        if (rangeMatch) collection = parseRange(rangeMatch[1]);
+        else collection = evalExpr(iterExpr, ctx);
+        if (!Array.isArray(collection)) collection = [];
+        var bodyLines = [];
+        i++;
+        while (i < lns.length && (lns[i].trim() === '' || getIndent(lns[i]) > indent)) {
+          bodyLines.push(lns[i]); i++;
+        }
+        var shouldBreak = false;
+        for (var ki = 0; ki < collection.length; ki++) {
+          var loopCtx = Object.assign({}, ctx); loopCtx[varName] = collection[ki];
+          var savedLen = output.length;
+          var innerBreak = false;
+          for (var bi = 0; bi < bodyLines.length; bi++) {
+            var bt = bodyLines[bi].trim();
+            if (!bt || bt.startsWith('#')) continue;
+            if (bt === 'break') { shouldBreak = true; innerBreak = true; break; }
+            if (bt === 'continue') { break; }
+            execLines([bodyLines[bi]], loopCtx);
+            Object.keys(loopCtx).forEach(function(k){ if (k !== varName) ctx[k] = loopCtx[k]; });
+            if (++lineCount > MAX) return;
+          }
+          if (shouldBreak || innerBreak) break;
+        }
+        continue;
+      }
+
+      // while loop
+      var whileMatch = trimmed.match(/^while\s+(.+):$/);
+      if (whileMatch) {
+        var condStr = whileMatch[1];
+        var bodyLines = [];
+        i++;
+        while (i < lns.length && (lns[i].trim() === '' || getIndent(lns[i]) > indent)) {
+          bodyLines.push(lns[i]); i++;
+        }
+        var iterations = 0;
+        while (true) {
+          if (++iterations > 500) { output.push('[stopped: possible infinite loop]'); break; }
+          var cond = evalCond(condStr, ctx);
+          if (!cond) break;
+          var shouldBreak = false;
+          for (var bi = 0; bi < bodyLines.length; bi++) {
+            var bt = bodyLines[bi].trim();
+            if (!bt || bt.startsWith('#')) continue;
+            if (bt === 'break') { shouldBreak = true; break; }
+            if (bt === 'continue') { break; }
+            execLines([bodyLines[bi]], ctx);
+            if (++lineCount > MAX) return;
+          }
+          if (shouldBreak) break;
+        }
+        continue;
+      }
+
+      // if
+      var ifMatch = trimmed.match(/^if\s+(.+):$/);
+      if (ifMatch) {
+        var cond = evalCond(ifMatch[1], ctx);
+        var bodyLines = [];
+        i++;
+        while (i < lns.length && (lns[i].trim() === '' || getIndent(lns[i]) > indent)) {
+          bodyLines.push(lns[i]); i++;
+        }
+        if (cond) execLines(bodyLines, ctx);
+        continue;
+      }
+
+      // print
+      var printMatch = trimmed.match(/^print\((.*)?\)$/);
+      if (printMatch) { runPrint(printMatch[1] || '', ctx); i++; continue; }
+
+      // assignment
+      var assignMatch = trimmed.match(/^(\w+)\s*=\s*(.+)$/);
+      if (assignMatch) {
+        ctx[assignMatch[1]] = evalExpr(assignMatch[2], ctx);
+        vars[assignMatch[1]] = ctx[assignMatch[1]];
+        i++; continue;
+      }
+
+      // += -= shorthand
+      var augMatch = trimmed.match(/^(\w+)\s*(\+=|-=)\s*(.+)$/);
+      if (augMatch) {
+        var v = ctx[augMatch[1]] !== undefined ? ctx[augMatch[1]] : (vars[augMatch[1]] || 0);
+        var val = evalExpr(augMatch[3], ctx);
+        ctx[augMatch[1]] = augMatch[2] === '+=' ? v + val : v - val;
+        vars[augMatch[1]] = ctx[augMatch[1]];
+        i++; continue;
+      }
+
+      i++;
+    }
+  }
+
+  function evalCond(condStr, ctx) {
+    condStr = condStr.trim();
+    var m;
+    if (m = condStr.match(/^(.+)\s*==\s*(.+)$/))  return evalExpr(m[1],ctx) == evalExpr(m[2],ctx);
+    if (m = condStr.match(/^(.+)\s*!=\s*(.+)$/))  return evalExpr(m[1],ctx) != evalExpr(m[2],ctx);
+    if (m = condStr.match(/^(.+)\s*<=\s*(.+)$/))  return evalExpr(m[1],ctx) <= evalExpr(m[2],ctx);
+    if (m = condStr.match(/^(.+)\s*>=\s*(.+)$/))  return evalExpr(m[1],ctx) >= evalExpr(m[2],ctx);
+    if (m = condStr.match(/^(.+)\s*<\s*(.+)$/))   return evalExpr(m[1],ctx) <  evalExpr(m[2],ctx);
+    if (m = condStr.match(/^(.+)\s*>\s*(.+)$/))   return evalExpr(m[1],ctx) >  evalExpr(m[2],ctx);
+    return false;
+  }
+
+  try { execLines(lines, {}); }
+  catch(e) { output.push('Error: ' + e.message); }
+  return output.join('\n') || '(no output)';
+}
+
+function runPlayground(id) {
+  var code = document.getElementById(id + '-code').value;
+  var out = document.getElementById(id + '-output');
+  var result = simulatePython(code);
+  out.textContent = result;
+  out.className = 'playground-result';
+}
+
+/* ── Quiz logic ── */
+function checkQuiz(btn, result, quizId) {
+  var quiz = btn.closest('.quiz');
+  var buttons = quiz.querySelectorAll('.quiz-option');
+  buttons.forEach(function(b){ b.disabled = true; });
+  var fb = document.getElementById(quizId + '-feedback');
+  var reset = document.getElementById(quizId + '-reset');
+  if (result === 'correct') {
+    btn.classList.add('correct');
+    fb.textContent = 'Correct! Well done.';
+    fb.className = 'quiz-feedback show feedback-correct';
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = 'Not quite — try again.';
+    fb.className = 'quiz-feedback show feedback-wrong';
+    reset.classList.add('show');
+  }
+}
+function resetQuiz(quizId) {
+  var quiz = document.getElementById(quizId + '-feedback').closest('.quiz');
+  quiz.querySelectorAll('.quiz-option').forEach(function(b){
+    b.disabled = false;
+    b.classList.remove('correct','wrong');
+  });
+  var fb = document.getElementById(quizId + '-feedback');
+  fb.className = 'quiz-feedback';
+  document.getElementById(quizId + '-reset').classList.remove('show');
+}
+
+/* ── Fill in the blank logic ── */
+function checkFitb(inputId, answer, feedbackId) {
+  var input = document.getElementById(inputId);
+  var fb = document.getElementById(feedbackId);
+  if (input.value.trim().toLowerCase() === answer.toLowerCase()) {
+    fb.textContent = 'Correct!';
+    fb.className = 'fitb-feedback fitb-correct';
+    input.style.borderColor = '#3B6D11';
+  } else {
+    fb.textContent = 'Not quite — check the answer and try again.';
+    fb.className = 'fitb-feedback fitb-wrong';
+    input.style.borderColor = '#A32D2D';
+  }
+}
+</script>
+</body>
+</html>
