@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SQL Server T-SQL: Variables, IF/ELSE, and WHILE — Interactive Tutorial</title><style>
+:root{color-scheme:light;--bg:#f7f9fc;--paper:#fff;--ink:#1b293d;--muted:#53677d;--line:#d9e2ed;--blue:#175f9c;--soft:#eaf4ff;--green:#146a44}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}header{background:linear-gradient(115deg,#f0f7ff,#fff);border-bottom:1px solid var(--line);padding:42px 24px 28px}.wrap{max-width:1100px;margin:auto}h1{font-size:clamp(27px,4vw,43px);line-height:1.15;margin:5px 0 13px}header p{max-width:850px;color:var(--muted);font-size:17px}h2{font-size:25px;line-height:1.25;color:#163f68;border-bottom:2px solid #dcebf8;padding-bottom:12px;margin:0 0 20px}h3{font-size:18px;line-height:1.3;margin:0 0 9px;color:#183f66}p{margin:10px 0}main{max-width:1100px;margin:24px auto 60px;padding:0 20px}section{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:28px;margin:0 0 22px;box-shadow:0 3px 12px #1d3e6510;scroll-margin-top:15px}nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}nav a{background:#fff;border:1px solid #cadcec;color:#185786;text-decoration:none;padding:6px 11px;border-radius:18px;font-size:13px;font-weight:650}nav a:hover{background:#e4f2ff}.eyebrow{color:#25619b;text-transform:uppercase;letter-spacing:1.5px;font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.tile{padding:16px;background:#f2f7fc;border:1px solid #dfebf5;border-radius:10px}.tile p{margin:5px 0 0}.example,.practice{border:1px solid #dbe5ee;border-radius:10px;padding:18px;margin:16px 0;background:#fff}.example{border-left:4px solid #4487bd}.practice{border-left:4px solid #6c95b9}.tag{display:inline-block;color:#375c7c;background:#eef5fb;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.3px;padding:2px 7px;margin-bottom:9px;text-transform:uppercase}pre{background:#f2f6fa;color:#15283b;border:1px solid #d9e3ed;border-radius:9px;overflow-x:auto;padding:16px;line-height:1.52;font-size:13px;white-space:pre}code{font-family:Consolas,"Courier New",monospace;font-size:.9em}p code,td code,li code{background:#eff4f9;padding:1px 4px;border-radius:4px;color:#164c7b}pre code{font-size:inherit;background:transparent;padding:0;color:inherit}.output,.note,.warning{padding:12px 15px;border-radius:8px;margin:13px 0}.output{background:#eef8f0;color:#18533a}.note{background:#edf6ff;border-left:4px solid #4a92c9}.warning{background:#fff6e8;border-left:4px solid #dc9c42}table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}th,td{border:1px solid #d9e2eb;padding:10px 11px;text-align:left;vertical-align:top}th{background:#edf4fa}tr:nth-child(even) td{background:#fbfdff}details{background:#f6faff;border:1px solid #dbe8f4;border-radius:9px;padding:11px 14px;margin-top:12px}summary{cursor:pointer;font-weight:700;color:#155c93}details[open] summary{margin-bottom:10px}button{background:#1765a0;color:#fff;border:1px solid #1765a0;border-radius:8px;padding:10px 15px;font-weight:700;cursor:pointer;font-size:14px}button:hover{filter:brightness(.94)}button.secondary{background:#fff;color:#155c93}.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}.quizbar{display:flex;align-items:center;justify-content:space-between;background:#f0f7ff;border:1px solid #d4e5f3;padding:12px 15px;border-radius:9px;margin:16px 0}.question{padding:17px;border:1px solid #d9e4ef;border-radius:10px;margin:12px 0;background:#fff}.question h3{font-size:16px}.option{display:block;margin:7px 0;padding:8px 10px;border:1px solid #e1e8ef;border-radius:7px;cursor:pointer}.option:hover{background:#f3f8fd}.option input{margin-right:9px;accent-color:#1765a0}.feedback{display:none;margin-top:10px;padding:11px 13px;border-radius:7px;background:#f2f7fc;border-left:4px solid #6d95b6}.question.correct{border-color:#7dbb98}.question.incorrect{border-color:#d8a17f}.question.correct .feedback{border-left-color:#208459}.question.incorrect .feedback{border-left-color:#b36c37}footer{text-align:center;color:#62748a;padding:30px}a{color:#145e97}@media(max-width:700px){section{padding:18px}main{padding:0 10px}.grid{grid-template-columns:1fr}header{padding:28px 15px}table{font-size:12px}th,td{padding:7px}}@media print{body{background:#fff}header,section{box-shadow:none}nav,.toolbar,#checkQuiz,#resetQuiz{display:none!important}section{break-inside:avoid}details:not([open])>*:not(summary){display:block!important}details{break-inside:avoid}}
+</style></head><body><header><div class="wrap"><div class="eyebrow">SQL Server</div><h1>Variables, IF / ELSE, and WHILE Loops in SQL Server</h1><p>A detailed, step-by-step T-SQL tutorial with annotated examples, 24 practice exercises with worked solutions, a 24-question interactive quiz, and a bookstore mini-project.</p><nav aria-label="Tutorial contents"><a href="#start">Overview</a><a href="#variables">Variables</a><a href="#conditions">Conditions</a><a href="#if">IF / ELSE</a><a href="#loops">WHILE loops</a><a href="#database">Database examples</a><a href="#procedures">Stored procedures</a><a href="#debug">Debugging</a><a href="#practice">24 practice exercises</a><a href="#quiz">24-question quiz</a><a href="#project">Mini-project</a><a href="#reference">Reference</a></nav></div></header><main><section id="start"><h2>1. What you will learn</h2><p>This tutorial teaches <strong>SQL Server T-SQL</strong> variables, decision-making, and repetition from the ground up. It assumes you can write a simple <code>SELECT</code> statement. You do not need stored-procedure experience.</p><div class="grid"><div class="tile"><b>Variables</b><p>Store one value temporarily using <code>DECLARE</code> and <code>SET</code>.</p></div><div class="tile"><b>IF / ELSE</b><p>Choose which statements execute based on a condition.</p></div><div class="tile"><b>WHILE</b><p>Repeat statements while a condition is true.</p></div><div class="tile"><b>Practical SQL</b><p>Use control flow with queries, totals, and bookstore data.</p></div></div><p><strong>Where to run:</strong> Open SQL Server Management Studio (SSMS) or Azure Data Studio / another T-SQL editor connected to Microsoft SQL Server. Paste each example into a query window and execute it. This tutorial is about <strong>SQL Server T-SQL</strong>, not MySQL or PostgreSQL; syntax differs.</p><div class="note">Interactive quizzes and revealable solutions work offline in this HTML file. SQL examples are displayed, not executed by the browser: run them in SQL Server.</div></section><section id="variables"><h2>2. Variables: DECLARE, SET, SELECT</h2><p>A <strong>local variable</strong> is a named place to store one value while a T-SQL batch, stored procedure, or function is running. Its name starts with <code>@</code>. It is <em>not</em> a table column and does not permanently store data.</p><div class="example"><h3>Declare and assign an integer</h3><pre><code>DECLARE @Age INT;
+SET @Age = 21;
+SELECT @Age AS StudentAge;</code></pre><p><code>DECLARE</code> creates the variable; <code>INT</code> specifies the type; <code>SET</code> assigns a value; <code>SELECT</code> displays it.</p><div class="output"><b>Expected result:</b> StudentAge = 21</div></div><div class="example"><h3>Initialize when declaring</h3><pre><code>DECLARE @CourseName VARCHAR(50) = &#x27;Database Development&#x27;;
+SELECT @CourseName AS Course;</code></pre><p>A variable can receive its initial value in the <code>DECLARE</code> statement.</p><div class="output"><b>Expected result:</b> Course = Database Development</div></div><div class="example"><h3>Change a variable</h3><pre><code>DECLARE @Score INT = 70;
+SET @Score = @Score + 10;
+SELECT @Score AS NewScore;</code></pre><p>Read the current value (70), add 10, and store the new value (80).</p><div class="output"><b>Expected result:</b> NewScore = 80</div></div><h3>Common data types</h3><table><tr><th>Type</th><th>Use</th><th>Example</th></tr><tr><td><code>INT</code></td><td>Whole numbers</td><td>15</td></tr><tr><td><code>DECIMAL(10,2)</code></td><td>Exact numbers with two decimal places</td><td>29.95</td></tr><tr><td><code>VARCHAR(50)</code></td><td>Non-Unicode text, up to 50 characters</td><td>'Alex'</td></tr><tr><td><code>NVARCHAR(50)</code></td><td>Unicode text</td><td>N'José'</td></tr><tr><td><code>DATE</code></td><td>Calendar date</td><td>'2026-10-15'</td></tr><tr><td><code>BIT</code></td><td>0, 1, or NULL</td><td>1</td></tr></table><div class="example"><h3>SET versus SELECT assignment</h3><pre><code>DECLARE @Price DECIMAL(10,2);
+SET @Price = 19.99;
+SELECT @Price AS Price;
+
+-- SELECT can also assign a variable:
+SELECT @Price = 24.50;
+SELECT @Price AS UpdatedPrice;</code></pre><p>Both forms can assign values. <code>SET</code> is usually clearest for one explicit assignment. A <code>SELECT @x = column</code> query that returns several rows may overwrite the variable repeatedly; avoid assuming which row will be last without a deterministic approach.</p><div class="output"><b>Expected result:</b> First 19.99; then 24.50</div></div><div class="example"><h3>Variables begin as NULL</h3><pre><code>DECLARE @City VARCHAR(30);
+SELECT @City AS City;</code></pre><p>Without an initializer, a local variable has the value <code>NULL</code>, meaning no known value.</p><div class="output"><b>Expected result:</b> City = NULL</div></div><div class="warning"><strong>Important:</strong> <code>GO</code> is a batch separator recognized by tools such as SSMS, not a T-SQL statement. A local variable declared before <code>GO</code> is unavailable afterward. Run each standalone example separately.</div></section><section id="conditions"><h2>3. Expressions, comparisons, and NULL</h2><p>Conditions are predicates that SQL Server evaluates as <strong>TRUE, FALSE, or UNKNOWN</strong>. An <code>IF</code> block executes only when the predicate is TRUE.</p><table><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr><tr><td><code>=</code></td><td>Equal to</td><td><code>@x = 10</code></td></tr><tr><td><code>&lt;&gt;</code></td><td>Not equal</td><td><code>@x &lt;&gt; 10</code></td></tr><tr><td><code>&gt;, &lt;, &gt;=, &lt;=</code></td><td>Compare values</td><td><code>@x &gt;= 70</code></td></tr><tr><td><code>AND</code></td><td>Both conditions true</td><td><code>@x &gt;= 0 AND @x &lt;= 100</code></td></tr><tr><td><code>OR</code></td><td>Either condition true</td><td><code>@x &lt; 0 OR @x &gt; 100</code></td></tr><tr><td><code>NOT</code></td><td>Negates a predicate</td><td><code>NOT (@x = 0)</code></td></tr><tr><td><code>IS NULL</code></td><td>Tests for missing value</td><td><code>@x IS NULL</code></td></tr></table><div class="example"><h3>Checking NULL correctly</h3><pre><code>DECLARE @Discount DECIMAL(5,2) = NULL;
+IF @Discount IS NULL
+    SELECT &#x27;No discount supplied&#x27; AS Message;</code></pre><p>Use <code>IS NULL</code>, not <code>= NULL</code>. Comparisons with NULL generally evaluate to UNKNOWN.</p><div class="output"><b>Expected result:</b> No discount supplied</div></div><div class="example"><h3>COALESCE supplies a default</h3><pre><code>DECLARE @Discount DECIMAL(5,2) = NULL;
+SELECT COALESCE(@Discount, 0) AS Discount;</code></pre><p><code>COALESCE</code> returns the first non-NULL expression.</p><div class="output"><b>Expected result:</b> Discount = 0</div></div><p><strong>Arithmetic note:</strong> SQL Server uses <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>%</code> (remainder). Integer division truncates the fractional part, so use decimal operands when fractions matter.</p></section><section id="if"><h2>4. IF, ELSE, and BEGIN ... END</h2><p><code>IF</code> tests a condition. If true, the following statement executes; otherwise the optional <code>ELSE</code> statement executes. <code>BEGIN ... END</code> groups multiple statements into one block.</p><div class="example"><h3>Simple IF</h3><pre><code>DECLARE @Score INT = 85;
+IF @Score &gt;= 70
+    SELECT &#x27;Pass&#x27; AS Result;</code></pre><p>Because 85 is at least 70, the message is returned.</p><div class="output"><b>Expected result:</b> Pass</div></div><div class="example"><h3>IF / ELSE</h3><pre><code>DECLARE @Score INT = 62;
+IF @Score &gt;= 70
+BEGIN
+    SELECT &#x27;Pass&#x27; AS Result;
+END
+ELSE
+BEGIN
+    SELECT &#x27;Needs improvement&#x27; AS Result;
+END;</code></pre><p>Only one branch runs. With a score of 62, the ELSE branch runs.</p><div class="output"><b>Expected result:</b> Needs improvement</div></div><div class="example"><h3>Multiple decisions with ELSE IF</h3><pre><code>DECLARE @Score INT = 86;
+IF @Score &gt;= 90
+    SELECT &#x27;A&#x27; AS Grade;
+ELSE IF @Score &gt;= 80
+    SELECT &#x27;B&#x27; AS Grade;
+ELSE IF @Score &gt;= 70
+    SELECT &#x27;C&#x27; AS Grade;
+ELSE
+    SELECT &#x27;Below C&#x27; AS Grade;</code></pre><p>Conditions are tested from top to bottom. The first true branch wins. SQL Server uses <code>ELSE IF</code>, not Python’s <code>elif</code>.</p><div class="output"><b>Expected result:</b> Grade = B</div></div><div class="example"><h3>Two statements require a block</h3><pre><code>DECLARE @Stock INT = 0;
+IF @Stock = 0
+BEGIN
+    SELECT &#x27;Out of stock&#x27; AS Status;
+    SELECT &#x27;Order more copies&#x27; AS ActionNeeded;
+END;</code></pre><p>Without <code>BEGIN ... END</code>, only the immediately following statement belongs to the IF.</p><div class="output"><b>Expected result:</b> Two result sets</div></div><div class="note"><strong>IF versus CASE:</strong> <code>IF</code> controls which SQL statements execute. <code>CASE</code> is an expression used inside a query to produce a value for each row. <code>CASE</code> is not a replacement for multi-statement IF blocks.</div><div class="example"><h3>CASE inside SELECT</h3><pre><code>SELECT CASE WHEN 82 &gt;= 70 THEN &#x27;Pass&#x27; ELSE &#x27;Fail&#x27; END AS Result;</code></pre><p>This expression returns one value within a SELECT statement.</p><div class="output"><b>Expected result:</b> Pass</div></div></section><section id="loops"><h2>5. WHILE loops, counters, and stopping</h2><p>SQL Server provides a <code>WHILE</code> loop. It repeats a statement or block <strong>while the condition is TRUE</strong>. There is no built-in T-SQL <code>FOR</code> loop.</p><div class="example"><h3>Count from 1 to 5</h3><pre><code>DECLARE @Counter INT = 1;
+WHILE @Counter &lt;= 5
+BEGIN
+    SELECT @Counter AS CurrentNumber;
+    SET @Counter = @Counter + 1;
+END;</code></pre><p>First the condition is checked. The number is displayed. The counter increases by one. After 5, it becomes 6, so the loop ends.</p><div class="output"><b>Expected result:</b> Five separate result sets: 1, 2, 3, 4, 5</div></div><div class="example"><h3>Count backward</h3><pre><code>DECLARE @Counter INT = 3;
+WHILE @Counter &gt;= 1
+BEGIN
+    SELECT @Counter AS Countdown;
+    SET @Counter = @Counter - 1;
+END;</code></pre><p>Decreasing the counter moves toward the stopping condition.</p><div class="output"><b>Expected result:</b> 3, 2, 1</div></div><div class="example"><h3>Add the numbers from 1 to 4</h3><pre><code>DECLARE @N INT = 1;
+DECLARE @Total INT = 0;
+WHILE @N &lt;= 4
+BEGIN
+    SET @Total = @Total + @N;
+    SET @N = @N + 1;
+END;
+SELECT @Total AS SumOfNumbers;</code></pre><p>The running total changes from 0 → 1 → 3 → 6 → 10.</p><div class="output"><b>Expected result:</b> SumOfNumbers = 10</div></div><h3>Trace the loop</h3><table><tr><th>Iteration</th><th>@N before addition</th><th>@Total after addition</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>2</td><td>2</td><td>3</td></tr><tr><td>3</td><td>3</td><td>6</td></tr><tr><td>4</td><td>4</td><td>10</td></tr></table><div class="example"><h3>BREAK ends the loop</h3><pre><code>DECLARE @N INT = 1;
+WHILE @N &lt;= 10
+BEGIN
+    IF @N = 4 BREAK;
+    SELECT @N AS Number;
+    SET @N = @N + 1;
+END;</code></pre><p>The loop stops completely when @N reaches 4, before displaying it.</p><div class="output"><b>Expected result:</b> 1, 2, 3</div></div><div class="example"><h3>CONTINUE skips the rest of one iteration</h3><pre><code>DECLARE @N INT = 0;
+WHILE @N &lt; 5
+BEGIN
+    SET @N = @N + 1;
+    IF @N = 3 CONTINUE;
+    SELECT @N AS Number;
+END;</code></pre><p>The counter is incremented <em>before</em> CONTINUE. This prevents an endless loop when 3 is skipped.</p><div class="output"><b>Expected result:</b> 1, 2, 4, 5</div></div><div class="warning"><strong>Infinite loop warning:</strong> Always check that the loop can eventually become false or reach <code>BREAK</code>. If you accidentally start a runaway query in SSMS, use the Cancel Executing Query command.</div><div class="note"><strong>Database best practice:</strong> SQL is usually faster and clearer when you operate on whole sets of rows with <code>SELECT</code>, <code>UPDATE</code>, and aggregates. Use <code>WHILE</code> when sequential control flow is genuinely necessary, not automatically for every row.</div></section><section id="database"><h2>6. Combining variables with database queries</h2><p>The next examples use a small <strong>online bookstore</strong> dataset. Run the setup once in a scratch database where you are permitted to create temporary tables. The temporary table exists only for your current SQL Server session.</p><div class="example"><h3>Create and populate sample data</h3><pre><code>CREATE TABLE #Books (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(60),
+    Category VARCHAR(30),
+    Price DECIMAL(10,2),
+    Stock INT
+);
+INSERT INTO #Books (BookID, Title, Category, Price, Stock) VALUES
+(1, &#x27;Python Basics&#x27;, &#x27;Programming&#x27;, 24.00, 8),
+(2, &#x27;SQL Essentials&#x27;, &#x27;Database&#x27;, 32.50, 3),
+(3, &#x27;Web Design&#x27;, &#x27;Web&#x27;, 19.00, 0),
+(4, &#x27;Advanced SQL&#x27;, &#x27;Database&#x27;, 45.00, 5);
+SELECT * FROM #Books;</code></pre><p>Run this setup before the remaining examples in this section. Do not rerun CREATE TABLE in the same session without first dropping the temporary table.</p><div class="output"><b>Expected result:</b> Four book rows</div></div><div class="example"><h3>Store a value returned by a query</h3><pre><code>DECLARE @BookCount INT;
+SELECT @BookCount = COUNT(*) FROM #Books;
+SELECT @BookCount AS TotalBooks;</code></pre><p>The aggregate returns one row, making it suitable for assigning one variable.</p><div class="output"><b>Expected result:</b> TotalBooks = 4</div></div><div class="example"><h3>Decide based on a database value</h3><pre><code>DECLARE @LowStockCount INT;
+SELECT @LowStockCount = COUNT(*) FROM #Books WHERE Stock &lt; 5;
+IF @LowStockCount &gt; 0
+    SELECT &#x27;Some books need attention&#x27; AS Alert;
+ELSE
+    SELECT &#x27;Stock looks sufficient&#x27; AS Alert;</code></pre><p>Two books have stock below 5 (SQL Essentials and Web Design), so the IF branch runs.</p><div class="output"><b>Expected result:</b> Some books need attention</div></div><div class="example"><h3>Use a variable as a filter</h3><pre><code>DECLARE @MaxPrice DECIMAL(10,2) = 30.00;
+SELECT Title, Price FROM #Books WHERE Price &lt;= @MaxPrice ORDER BY Price;</code></pre><p>The variable makes the price limit easy to change without rewriting the WHERE condition.</p><div class="output"><b>Expected result:</b> Web Design (19.00); Python Basics (24.00)</div></div><div class="example"><h3>Loop over numbers, not book rows</h3><pre><code>DECLARE @Threshold INT = 0;
+WHILE @Threshold &lt;= 4
+BEGIN
+    SELECT @Threshold AS Threshold,
+           COUNT(*) AS BooksAtOrBelowThreshold
+    FROM #Books
+    WHERE Stock &lt;= @Threshold;
+    SET @Threshold = @Threshold + 2;
+END;</code></pre><p>This repeats a summary for thresholds 0, 2, and 4. For one summary of all books, a set-based query is preferable.</p><div class="output"><b>Expected result:</b> Counts: 1 at 0; 1 at 2; 2 at 4</div></div><div class="warning"><strong>Scope:</strong> A <code>#Books</code> temporary table survives across batches in the same connection, but local variables do not survive a <code>GO</code> batch separator. If you reconnect or close the session, recreate <code>#Books</code>.</div></section><section id="procedures"><h2>7. Variables inside stored procedures</h2><p>A <strong>stored procedure</strong> is a named collection of T-SQL statements saved in the database. A procedure may accept <strong>parameters</strong> such as <code>@MinPrice</code>. A parameter is supplied by the caller; a local variable is declared inside the procedure.</p><div class="example"><h3>Create a simple procedure</h3><pre><code>CREATE OR ALTER PROCEDURE dbo.ShowPriceMessage
+    @Price DECIMAL(10,2)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF @Price &gt;= 30
+        SELECT &#x27;Higher-priced book&#x27; AS PriceGroup;
+    ELSE
+        SELECT &#x27;Lower-priced book&#x27; AS PriceGroup;
+END;</code></pre><p>Run this as its own batch in a database where you have CREATE PROCEDURE permission. <code>CREATE OR ALTER PROCEDURE</code> must start a batch; do not place ordinary statements before it in the same batch.</p><div class="output"><b>Expected result:</b> Procedure created</div></div><div class="example"><h3>Call the procedure</h3><pre><code>EXEC dbo.ShowPriceMessage @Price = 35.00;</code></pre><p>The supplied parameter is 35.00, so the first branch executes.</p><div class="output"><b>Expected result:</b> Higher-priced book</div></div><div class="example"><h3>Procedure with a local variable</h3><pre><code>CREATE OR ALTER PROCEDURE dbo.ShowDiscountedPrice
+    @Price DECIMAL(10,2),
+    @DiscountPercent DECIMAL(5,2)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @FinalPrice DECIMAL(10,2);
+    SET @FinalPrice = @Price * (1 - @DiscountPercent / 100.0);
+    SELECT @FinalPrice AS FinalPrice;
+END;</code></pre><p>Parameters are inputs. The local variable stores a calculated result. Create the procedure in its own batch, then execute it separately.</p></div><div class="example"><h3>Call with named arguments</h3><pre><code>EXEC dbo.ShowDiscountedPrice @Price = 50.00, @DiscountPercent = 10.00;</code></pre><p>A 10% discount on 50.00 produces 45.00.</p><div class="output"><b>Expected result:</b> FinalPrice = 45.00</div></div><div class="note">You do not need stored procedures to use variables, IF, or WHILE. Those constructs also work in an ordinary query batch. The procedure examples show how the same concepts are reused in database applications.</div></section><section id="debug"><h2>8. Common mistakes and debugging</h2><table><tr><th>Mistake</th><th>Why it fails or misleads</th><th>Fix</th></tr><tr><td><code>DECLARE Score INT</code></td><td>Local variable lacks @.</td><td><code>DECLARE @Score INT</code></td></tr><tr><td><code>IF @x = NULL</code></td><td>NULL comparison is UNKNOWN.</td><td><code>IF @x IS NULL</code></td></tr><tr><td>Two statements after IF without BEGIN/END</td><td>Only first statement is conditional.</td><td>Group statements in BEGIN/END.</td></tr><tr><td>WHILE counter never changes</td><td>May never terminate.</td><td>Update counter or use BREAK.</td></tr><tr><td>Increment after CONTINUE</td><td>Increment may be skipped.</td><td>Increment before CONTINUE.</td></tr><tr><td>Variable referenced after GO</td><td>Variable scope ended.</td><td>Declare again in the new batch.</td></tr><tr><td>Assume SELECT assignment returns one row</td><td>Multiple rows may assign repeatedly.</td><td>Use aggregates or an explicit single-row strategy.</td></tr><tr><td>Expect PRINT as a results table</td><td>PRINT writes to Messages.</td><td>Use SELECT for tabular output.</td></tr></table><div class="example"><h3>Messages versus results</h3><pre><code>DECLARE @Status VARCHAR(20) = &#x27;Ready&#x27;;
+PRINT @Status;
+SELECT @Status AS Status;</code></pre><p><code>PRINT</code> displays a message; <code>SELECT</code> produces a result set.</p></div><p><strong>Debugging strategy:</strong> Run the smallest working portion first; inspect variable values with <code>SELECT @Variable AS DebugValue</code>; trace the condition manually; check the loop update; and then add one statement at a time.</p></section><section id="practice"><h2>9. Practice lab: 24 exercises with worked solutions</h2><p>Try each exercise <strong>before</strong> opening its solution. For P17–P20, run the <code>#Books</code> setup from Section 6 first. Every solution is self-contained except those exercises requiring the sample table.</p><div class="toolbar"><button type="button" onclick="document.querySelectorAll('.practice details').forEach(x=>x.open=true)">Reveal all solutions</button><button type="button" class="secondary" onclick="document.querySelectorAll('.practice details').forEach(x=>x.open=false)">Hide all solutions</button></div><article class="practice"><div class="tag">Core practice</div><h3>P1. Declare a variable</h3><p>Create an INT variable @Copies with value 12 and display it.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Copies INT = 12;
+SELECT @Copies AS Copies;</code></pre><p>DECLARE creates and initializes the variable; SELECT displays 12.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P2. Change a price</h3><p>Start @Price at 20.00, increase it by 5.50, and display the new price.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Price DECIMAL(10,2) = 20.00;
+SET @Price = @Price + 5.50;
+SELECT @Price AS NewPrice;</code></pre><p>The new value is 25.50.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P3. Store a name</h3><p>Store the text Alex in @StudentName and display it.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @StudentName VARCHAR(30) = &#x27;Alex&#x27;;
+SELECT @StudentName AS StudentName;</code></pre><p>Use single quotes around SQL text literals.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P4. Default a missing value</h3><p>Declare a NULL integer @Stock and display zero instead.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Stock INT = NULL;
+SELECT COALESCE(@Stock, 0) AS Stock;</code></pre><p>COALESCE replaces the missing value with 0 in the result.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P5. Pass or fail</h3><p>Given @Score = 68, display Pass if score >= 70; otherwise Fail.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Score INT = 68;
+IF @Score &gt;= 70
+    SELECT &#x27;Pass&#x27; AS Result;
+ELSE
+    SELECT &#x27;Fail&#x27; AS Result;</code></pre><p>The condition is false, so the result is Fail.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P6. Book discount eligibility</h3><p>Given @Price = 45, display Discount eligible when price >= 40; otherwise Regular price.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Price DECIMAL(10,2) = 45;
+IF @Price &gt;= 40
+    SELECT &#x27;Discount eligible&#x27; AS Status;
+ELSE
+    SELECT &#x27;Regular price&#x27; AS Status;</code></pre><p>45 meets the threshold.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P7. Classify stock</h3><p>Given @Stock = 0, show Out of stock for zero, Low stock for 1–4, and In stock for 5 or more.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Stock INT = 0;
+IF @Stock = 0
+    SELECT &#x27;Out of stock&#x27; AS Status;
+ELSE IF @Stock &lt; 5
+    SELECT &#x27;Low stock&#x27; AS Status;
+ELSE
+    SELECT &#x27;In stock&#x27; AS Status;</code></pre><p>The first branch is true, so no later branch runs.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P8. Validate a score</h3><p>Display Invalid for @Score = 110; otherwise display Valid when score is between 0 and 100 inclusive.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Score INT = 110;
+IF @Score &lt; 0 OR @Score &gt; 100
+    SELECT &#x27;Invalid&#x27; AS Status;
+ELSE
+    SELECT &#x27;Valid&#x27; AS Status;</code></pre><p>110 is above 100, so it is invalid.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P9. Check NULL</h3><p>Given @City = NULL, display City missing; otherwise City available.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @City VARCHAR(30) = NULL;
+IF @City IS NULL
+    SELECT &#x27;City missing&#x27; AS Status;
+ELSE
+    SELECT &#x27;City available&#x27; AS Status;</code></pre><p>IS NULL tests missing values.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P10. Two conditional outputs</h3><p>When @Balance = 0, display both Paid in full and No payment due.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Balance DECIMAL(10,2) = 0;
+IF @Balance = 0
+BEGIN
+    SELECT &#x27;Paid in full&#x27; AS Message;
+    SELECT &#x27;No payment due&#x27; AS NextStep;
+END;</code></pre><p>BEGIN/END makes both statements conditional.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P11. Count upward</h3><p>Use WHILE to display 1 through 4.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 1;
+WHILE @N &lt;= 4
+BEGIN
+    SELECT @N AS Number;
+    SET @N = @N + 1;
+END;</code></pre><p>The loop ends when @N becomes 5.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P12. Count backward</h3><p>Use WHILE to display 5, 4, 3, 2, 1.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 5;
+WHILE @N &gt;= 1
+BEGIN
+    SELECT @N AS Number;
+    SET @N = @N - 1;
+END;</code></pre><p>The counter decreases toward zero.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P13. Sum 1 through 5</h3><p>Calculate 1 + 2 + 3 + 4 + 5 using WHILE; display one final total.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 1, @Total INT = 0;
+WHILE @N &lt;= 5
+BEGIN
+    SET @Total = @Total + @N;
+    SET @N = @N + 1;
+END;
+SELECT @Total AS Total;</code></pre><p>The total is 15.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P14. Multiplication table</h3><p>Display the first five multiples of 3 using a loop.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 1;
+WHILE @N &lt;= 5
+BEGIN
+    SELECT 3 * @N AS MultipleOfThree;
+    SET @N = @N + 1;
+END;</code></pre><p>Results are 3, 6, 9, 12, and 15.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P15. Skip three</h3><p>Display 1, 2, 4, 5 using CONTINUE.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 0;
+WHILE @N &lt; 5
+BEGIN
+    SET @N = @N + 1;
+    IF @N = 3 CONTINUE;
+    SELECT @N AS Number;
+END;</code></pre><p>Increment first; then skip the output when @N is 3.</p></details></article><article class="practice"><div class="tag">Core practice</div><h3>P16. Stop at four</h3><p>Loop through 1 to 10 but stop before displaying 4.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 1;
+WHILE @N &lt;= 10
+BEGIN
+    IF @N = 4 BREAK;
+    SELECT @N AS Number;
+    SET @N = @N + 1;
+END;</code></pre><p>BREAK stops the entire loop. Results: 1, 2, 3.</p></details></article><article class="practice"><div class="tag">Database practice</div><h3>P17. Count books</h3><p>Using #Books from Section 6, store the number of rows in @TotalBooks.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @TotalBooks INT;
+SELECT @TotalBooks = COUNT(*) FROM #Books;
+SELECT @TotalBooks AS TotalBooks;</code></pre><p>COUNT(*) returns one aggregate value: 4.</p></details></article><article class="practice"><div class="tag">Database practice</div><h3>P18. Average price</h3><p>Using #Books, store average price in a DECIMAL variable and display it.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @AvgPrice DECIMAL(10,2);
+SELECT @AvgPrice = AVG(Price) FROM #Books;
+SELECT @AvgPrice AS AveragePrice;</code></pre><p>(24 + 32.50 + 19 + 45) / 4 = 30.125, stored as 30.13 in DECIMAL(10,2).</p></details></article><article class="practice"><div class="tag">Database practice</div><h3>P19. Low-stock alert</h3><p>Using #Books, show Alert when any book has Stock < 4.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @LowCount INT;
+SELECT @LowCount = COUNT(*) FROM #Books WHERE Stock &lt; 4;
+IF @LowCount &gt; 0
+    SELECT &#x27;Alert&#x27; AS Status;
+ELSE
+    SELECT &#x27;No alert&#x27; AS Status;</code></pre><p>Two books qualify: stock 3 and 0.</p></details></article><article class="practice"><div class="tag">Database practice</div><h3>P20. Filter by variable</h3><p>Using #Books, display titles priced at or below @Limit = 25.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Limit DECIMAL(10,2) = 25;
+SELECT Title, Price FROM #Books WHERE Price &lt;= @Limit ORDER BY Price;</code></pre><p>Web Design and Python Basics qualify.</p></details></article><article class="practice"><div class="tag">Challenge</div><h3>P21. Grade with validation</h3><p>Given @Score = -2, first check validity, then assign A (>=90), B (>=80), C (>=70), or Below C.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Score INT = -2;
+IF @Score &lt; 0 OR @Score &gt; 100
+    SELECT &#x27;Invalid&#x27; AS Grade;
+ELSE IF @Score &gt;= 90
+    SELECT &#x27;A&#x27; AS Grade;
+ELSE IF @Score &gt;= 80
+    SELECT &#x27;B&#x27; AS Grade;
+ELSE IF @Score &gt;= 70
+    SELECT &#x27;C&#x27; AS Grade;
+ELSE
+    SELECT &#x27;Below C&#x27; AS Grade;</code></pre><p>Validation must come first; -2 is invalid, not merely Below C.</p></details></article><article class="practice"><div class="tag">Challenge</div><h3>P22. Count even numbers</h3><p>Use a loop to count how many even integers are between 1 and 10 inclusive.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @N INT = 1, @EvenCount INT = 0;
+WHILE @N &lt;= 10
+BEGIN
+    IF @N % 2 = 0
+        SET @EvenCount = @EvenCount + 1;
+    SET @N = @N + 1;
+END;
+SELECT @EvenCount AS EvenCount;</code></pre><p>Even integers are 2, 4, 6, 8, 10: count 5.</p></details></article><article class="practice"><div class="tag">Challenge</div><h3>P23. Compute a discounted total</h3><p>For @Quantity = 2, @UnitPrice = 25.00, @Discount = 10, compute sales using Quantity * UnitPrice * (1 - Discount / 100.0).</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Quantity INT = 2;
+DECLARE @UnitPrice DECIMAL(10,2) = 25.00;
+DECLARE @Discount DECIMAL(5,2) = 10.00;
+DECLARE @Sales DECIMAL(10,2);
+SET @Sales = @Quantity * @UnitPrice * (1 - @Discount / 100.0);
+SELECT @Sales AS SalesAmount;</code></pre><p>2 × 25 × 0.90 = 45.00.</p></details></article><article class="practice"><div class="tag">Challenge</div><h3>P24. Accumulate until threshold</h3><p>Start @Total at 0. Add 5 repeatedly while total is less than 20; show the final total.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Total INT = 0;
+WHILE @Total &lt; 20
+BEGIN
+    SET @Total = @Total + 5;
+END;
+SELECT @Total AS FinalTotal;</code></pre><p>The total becomes 5, 10, 15, then 20; loop ends.</p></details></article></section><section id="quiz"><h2>10. Interactive knowledge quiz: 24 questions</h2><p>Choose one answer for each question, then select <strong>Check answers</strong>. Your score and explanations appear immediately. Select <strong>Try again</strong> to reset the quiz. The quiz works offline; no responses are transmitted or saved.</p><div class="quizbar"><strong id="quiz-progress">0 of 24 answered</strong><span id="quiz-score" aria-live="polite"></span></div><div id="quiz-root"></div><div class="toolbar"><button type="button" id="checkQuiz">Check answers</button><button type="button" id="resetQuiz" class="secondary">Try again</button></div></section><section id="project"><h2>11. Mini-project: Bookstore Inventory Assistant</h2><p><strong>Goal:</strong> Use variables, IF/ELSE, and WHILE together to check stock and calculate the cost of a small order. This project works without any permanent database tables.</p><ol><li>Set the number of copies available and the requested quantity.</li><li>Check whether the order can be filled.</li><li>Calculate the discounted price if the order is valid.</li><li>Use WHILE to display a simple sequence of packing numbers.</li></ol><article class="practice"><div class="tag">Challenge</div><h3>Complete mini-project solution</h3><p>Write a T-SQL script for stock = 4, requested quantity = 3, unit price = 20, and discount = 10%. Show either an error or a total; if valid, show packing numbers 1 through 3.</p><details><summary>Show worked solution and explanation</summary><pre><code>DECLARE @Stock INT = 4;
+DECLARE @Requested INT = 3;
+DECLARE @UnitPrice DECIMAL(10,2) = 20.00;
+DECLARE @Discount DECIMAL(5,2) = 10.00;
+DECLARE @OrderTotal DECIMAL(10,2);
+
+IF @Requested &lt;= 0 OR @Requested &gt; @Stock
+BEGIN
+    SELECT &#x27;Order cannot be filled&#x27; AS Status;
+END
+ELSE
+BEGIN
+    SET @OrderTotal = @Requested * @UnitPrice
+        * (1 - @Discount / 100.0);
+    SELECT &#x27;Order accepted&#x27; AS Status, @OrderTotal AS OrderTotal;
+
+    DECLARE @CopyNumber INT = 1;
+    WHILE @CopyNumber &lt;= @Requested
+    BEGIN
+        SELECT @CopyNumber AS PackingNumber;
+        SET @CopyNumber = @CopyNumber + 1;
+    END;
+END;</code></pre><p>The request is valid (3 <= 4). The total is 3 × 20 × 0.90 = 54.00. Packing numbers are 1, 2, and 3. Test again with @Requested = 5 to see the rejection branch.</p></details></article><h3>Extension tasks</h3><p>Modify the script to reject negative stock, apply no discount for quantities below 3, and report how many copies remain after the order. Predict the results before executing.</p></section><section id="reference"><h2>12. Quick reference and next steps</h2><table><tr><th>Goal</th><th>Pattern</th></tr><tr><td>Declare</td><td><code>DECLARE @X INT = 1;</code></td></tr><tr><td>Assign</td><td><code>SET @X = 2;</code></td></tr><tr><td>Display</td><td><code>SELECT @X AS Value;</code></td></tr><tr><td>Check missing</td><td><code>IF @X IS NULL ...</code></td></tr><tr><td>Choose branch</td><td><code>IF ... BEGIN ... END ELSE BEGIN ... END</code></td></tr><tr><td>Repeat</td><td><code>WHILE ... BEGIN ... END</code></td></tr><tr><td>Stop loop</td><td><code>BREAK;</code></td></tr><tr><td>Skip iteration</td><td><code>CONTINUE;</code></td></tr><tr><td>Default NULL</td><td><code>COALESCE(@X, 0)</code></td></tr></table><p><strong>Suggested learning sequence:</strong> complete Sections 2–5; run the bookstore data examples; solve at least 12 practice problems without revealing answers; complete the interactive quiz; and finish the mini-project.</p><p><strong>Further reading:</strong> Microsoft Learn documentation for <em>DECLARE @local_variable</em>, <em>SET @local_variable</em>, <em>IF...ELSE</em>, <em>WHILE</em>, <em>BREAK</em>, <em>CONTINUE</em>, and <em>CREATE PROCEDURE</em> (Transact-SQL).</p></section></main><footer>SQL Server T-SQL learning tutorial • Light theme • Works offline • Run SQL in your SQL Server editor</footer><script>
+const questions=[{"q": "Which symbol begins a T-SQL local variable name?", "options": ["@", "#", ":", "$"], "answer": 0, "explanation": "A local variable in SQL Server is named with @, such as @Score."}, {"q": "What does DECLARE @N INT = 3; do?", "options": ["Creates an integer variable initialized to 3", "Creates a table with three rows", "Displays 3 automatically", "Starts a loop with three iterations"], "answer": 0, "explanation": "DECLARE creates the variable and initializes its value."}, {"q": "What is the initial value of DECLARE @City VARCHAR(20);?", "options": ["Empty string", "0", "NULL", "City"], "answer": 2, "explanation": "A declared variable without an assigned value begins as NULL."}, {"q": "What does SET @N = @N + 2 do when @N is 5?", "options": ["Sets @N to 2", "Sets @N to 7", "Creates a second variable", "Compares @N with 7"], "answer": 1, "explanation": "5 + 2 = 7; SET stores that value."}, {"q": "Which condition correctly checks for a missing @State?", "options": ["@State = NULL", "@State IS NULL", "@State == NULL", "@State EQUALS NULL"], "answer": 1, "explanation": "SQL uses IS NULL for testing missing values."}, {"q": "If @Score is 69, what does IF @Score >= 70 SELECT 'Pass' ELSE SELECT 'Fail' return?", "options": ["Pass", "Fail", "NULL", "Both messages"], "answer": 1, "explanation": "69 is below 70, so the ELSE branch executes."}, {"q": "Which construct groups two or more T-SQL statements under IF?", "options": ["BEGIN ... END", "START ... STOP", "OPEN ... CLOSE", "IF ... FINISH"], "answer": 0, "explanation": "BEGIN and END form a statement block."}, {"q": "How is an additional condition written after IF in T-SQL?", "options": ["elif", "ELSE IF", "elseif()", "WHEN IF"], "answer": 1, "explanation": "T-SQL uses ELSE IF."}, {"q": "What does COALESCE(NULL, 8) return?", "options": ["NULL", "0", "8", "An error"], "answer": 2, "explanation": "COALESCE returns the first non-NULL argument."}, {"q": "What does WHILE @N < 3 do when @N starts at 1 and increases by 1 each iteration?", "options": ["Runs once", "Runs twice", "Runs three times", "Never stops"], "answer": 1, "explanation": "Iterations begin at 1 and 2; the loop stops when @N becomes 3."}, {"q": "What happens when BREAK executes inside a WHILE loop?", "options": ["Skips just one SELECT", "Ends the current loop", "Resets the counter", "Restarts the loop"], "answer": 1, "explanation": "BREAK exits the loop."}, {"q": "What happens when CONTINUE executes inside WHILE?", "options": ["Exits the entire procedure", "Ends the loop permanently", "Skips the rest of the current iteration and checks the loop condition again", "Deletes the counter variable"], "answer": 2, "explanation": "CONTINUE skips remaining statements in that iteration."}, {"q": "Why should a loop counter usually change inside WHILE?", "options": ["To prevent a loop that never terminates", "To make DECLARE optional", "To create a new table", "To remove NULL values"], "answer": 0, "explanation": "The loop needs a path toward a false condition or BREAK."}, {"q": "What is the final @Total after adding 1, 2, and 3 to a starting value of 0?", "options": ["3", "5", "6", "9"], "answer": 2, "explanation": "0 + 1 + 2 + 3 = 6."}, {"q": "Which statement returns a variable as a result-set column?", "options": ["SELECT @N AS Number;", "DECLARE @N INT;", "BREAK;", "END;"], "answer": 0, "explanation": "SELECT returns a result set with a column alias."}, {"q": "What is the result of 7 % 2 in T-SQL?", "options": ["3", "1", "2", "0"], "answer": 1, "explanation": "7 divided by 2 leaves remainder 1."}, {"q": "What does IF do with a predicate that evaluates to UNKNOWN?", "options": ["Treats it as TRUE", "Executes the IF branch twice", "Does not execute the IF branch", "Raises an exception automatically"], "answer": 2, "explanation": "Only TRUE makes the IF branch execute."}, {"q": "What does GROUP BY do that WHILE does not inherently do?", "options": ["Groups rows for aggregation", "Creates a loop counter", "Declares a variable", "Ends a procedure"], "answer": 0, "explanation": "GROUP BY groups rows; WHILE repeats statements."}, {"q": "Which statement assigns a row count to @Count from #Books?", "options": ["SET @Count = #Books;", "SELECT @Count = COUNT(*) FROM #Books;", "COUNT(@Count) FROM #Books;", "DECLARE #Books = @Count;"], "answer": 1, "explanation": "The aggregate COUNT(*) produces one value for assignment."}, {"q": "What is the purpose of a stored-procedure parameter?", "options": ["Receive a value supplied by the caller", "Replace all table columns", "Automatically loop through every row", "Terminate a database session"], "answer": 0, "explanation": "Parameters let callers supply input values."}, {"q": "Which statement invokes a stored procedure named dbo.ShowPriceMessage?", "options": ["CALL dbo.ShowPriceMessage;", "EXEC dbo.ShowPriceMessage @Price = 25;", "SELECT PROCEDURE dbo.ShowPriceMessage;", "RUN PROC dbo.ShowPriceMessage;"], "answer": 1, "explanation": "EXEC runs a stored procedure with the named parameter."}, {"q": "What happens to a local variable after a GO batch separator?", "options": ["It becomes a global variable", "It is automatically saved to a table", "It is no longer in scope", "It changes to VARCHAR"], "answer": 2, "explanation": "GO separates batches, and local variable scope does not cross the boundary."}, {"q": "Which approach is generally preferable for updating many rows with the same rule?", "options": ["One set-based UPDATE statement", "One WHILE iteration per row regardless of need", "A separate DECLARE per row", "Printing every row before updating"], "answer": 0, "explanation": "SQL Server is optimized for set-based data operations."}, {"q": "Given Quantity = 2, UnitPrice = 10, Discount = 20, what is Quantity * UnitPrice * (1 - Discount / 100.0)?", "options": ["4.00", "16.00", "18.00", "20.00"], "answer": 1, "explanation": "2 × 10 × (1 − 0.20) = 16.00."}];
+const root=document.getElementById('quiz-root');
+function renderQuiz(){root.innerHTML='';questions.forEach((q,i)=>{const block=document.createElement('div');block.className='question';block.id='q'+i;const heading=document.createElement('h3');heading.textContent=(i+1)+'. '+q.q;block.appendChild(heading);q.options.forEach((opt,j)=>{const label=document.createElement('label');label.className='option';const input=document.createElement('input');input.type='radio';input.name='quiz'+i;input.value=String(j);input.addEventListener('change',updateProgress);label.appendChild(input);label.appendChild(document.createTextNode(String.fromCharCode(65+j)+'. '+opt));block.appendChild(label)});const feedback=document.createElement('div');feedback.className='feedback';block.appendChild(feedback);root.appendChild(block)});document.getElementById('quiz-score').textContent='';updateProgress()}
+function updateProgress(){const answered=questions.filter((q,i)=>document.querySelector('input[name="quiz'+i+'"]:checked')).length;document.getElementById('quiz-progress').textContent=answered+' of '+questions.length+' answered'}
+document.getElementById('checkQuiz').addEventListener('click',()=>{let score=0;questions.forEach((q,i)=>{const el=document.getElementById('q'+i);const selected=document.querySelector('input[name="quiz'+i+'"]:checked');const fb=el.querySelector('.feedback');el.classList.remove('correct','incorrect');const ok=selected&&Number(selected.value)===q.answer;if(ok)score++;el.classList.add(ok?'correct':'incorrect');fb.style.display='block';const correctLetter=String.fromCharCode(65+q.answer);fb.textContent=(selected?(ok?'Correct. ':'Not quite. '):'Not answered. ')+'Answer: '+correctLetter+' — '+q.options[q.answer]+'. '+q.explanation});document.getElementById('quiz-score').textContent='Score: '+score+' / '+questions.length+' ('+Math.round(score/questions.length*100)+'%)'});
+document.getElementById('resetQuiz').addEventListener('click',renderQuiz);renderQuiz();
+</script></body></html>
