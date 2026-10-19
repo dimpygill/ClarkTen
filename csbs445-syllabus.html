@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CSBS 445 — Introduction to Mobile Application Development | Syllabus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:            #F4F6FC;
+  --surface:       #ffffff;
+  --surface2:      #EEF1FA;
+  --border:        #D0DAF0;
+  --navy:          #0F1F4B;
+  --blue:          #1A5CFF;
+  --blue-mid:      #2D7DD2;
+  --blue-light:    #5BA4F5;
+  --accent:        #00C2A8;
+  --text:          #1A1E2E;
+  --text-muted:    #5A6380;
+  --concept-bg:    #EFF6FF;
+  --concept-border:#BFDBFE;
+  --lab-bg:        #F0FDF9;
+  --lab-border:    #6EE7D6;
+  --warn-bg:       #FFFBEB;
+  --warn-border:   #FDE68A;
+  --warn-text:     #78350F;
+  --warn-accent:   #F59E0B;
+  --note-bg:       #FEF9C3;
+  --note-border:   #FDE047;
+  --note-text:     #713F12;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* ── PAGE WRAPPER ── */
+.page { max-width: 900px; margin: 0 auto; padding: 36px 20px 80px; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  border-radius: 20px;
+  padding: 48px 48px 40px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -70px;
+  width: 280px; height: 280px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 100px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(24px, 3.8vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-size: 14px;
+  opacity: 0.82;
+  margin-bottom: 26px;
+}
+.hero-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 5px 13px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+/* ── SECTION CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(15,31,75,.06);
+}
+.card-head {
+  background: var(--navy);
+  padding: 13px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-head-icon { font-size: 16px; flex-shrink: 0; }
+.card-head-title {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.card-body { padding: 24px 28px; }
+
+/* ── SECTION LABEL (inside card) ── */
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* ── BODY TEXT ── */
+p { color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.65; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--text); }
+
+/* ── CONTACT BOX ── */
+.contact-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--navy);
+  line-height: 1.9;
+  margin-top: 16px;
+}
+.contact-box strong { display: block; margin-bottom: 6px; font-size: 12px; font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue-mid); }
+
+/* ── PREREQ CHIPS ── */
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--navy);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  padding: 4px 14px;
+  border-radius: 100px;
+}
+
+/* ── OUTCOMES TABLE ── */
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.outcome-cell {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.outcome-cell .oc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+  margin-bottom: 10px;
+  display: block;
+}
+.outcome-cell p { font-size: 13px; margin: 0 0 4px 0; color: var(--text-muted); }
+
+/* ── MINI PROJECT CALLOUT ── */
+.mini-project-box {
+  background: var(--concept-bg);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 20px;
+  font-size: 13.5px;
+  color: var(--navy);
+  margin-top: 4px;
+}
+.mini-project-box .mp-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── TENTATIVE NOTICE ── */
+.tentative-notice {
+  background: var(--note-bg);
+  border: 1px solid var(--note-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--note-text);
+  margin: 16px 0 24px;
+}
+
+/* ── WEEK CARD ── */
+.week-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.week-head {
+  background: var(--navy);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.week-num {
+  background: var(--blue);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 3px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.week-title {
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  flex: 1;
+}
+.week-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  padding: 2px 9px;
+  border-radius: 100px;
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tag-sdlc    { background: rgba(255,243,205,0.22); color: #FDE68A; }
+.tag-flutter { background: rgba(0,194,168,0.18);  color: #A7F3D0; }
+.tag-dart    { background: rgba(26,92,255,0.22);  color: #BAC8FF; }
+.tag-design  { background: rgba(195,133,255,0.2); color: #DDA0FF; }
+.tag-mobile  { background: rgba(52,211,153,0.2);  color: #A7F3D0; }
+.tag-testing { background: rgba(255,100,100,0.2); color: #FCA5A5; }
+.tag-project { background: rgba(167,139,250,0.2); color: #C4B5FD; }
+
+.week-body {
+  background: var(--bg);
+  padding: 16px 18px;
+}
+.week-cols {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.week-col { flex: 1; min-width: 210px; }
+.col-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+.col-label.concept { color: var(--blue-mid); }
+.col-label.lab     { color: #059669; }
+.week-col p { font-size: 13px; margin: 0 0 3px 0; color: var(--text-muted); }
+
+/* assignment strip */
+.assign-strip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.assign-strip.highlight {
+  background: var(--concept-bg);
+  border-color: var(--concept-border);
+  color: var(--navy);
+}
+.assign-strip strong { color: var(--navy); }
+
+/* ── ANDROID PREP CALLOUT ── */
+.android-prep {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-left: 4px solid var(--warn-accent);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: var(--warn-text);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+.android-prep .ap-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #92400E;
+  display: block;
+  margin-bottom: 8px;
+}
+.android-prep code { background: var(--warn-border); color: #78350F; padding: 1px 5px; border-radius: 3px; font-family: 'DM Mono', monospace; }
+
+/* ── CODE INLINE ── */
+code {
+  background: var(--surface2);
+  color: var(--navy);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+/* ── GLANCE TABLE ── */
+.glance-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.glance-table thead tr { background: var(--navy); color: #fff; }
+.glance-table th { padding: 10px 14px; text-align: left; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.05em; font-weight: 500; }
+.glance-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+.glance-table tr:nth-child(even) td { background: var(--surface2); }
+.glance-table .wk-num { color: var(--navy); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 13px; }
+.glance-table .wk-due { color: var(--navy); font-weight: 600; }
+
+/* ── GRADING BLOCK ── */
+.assign-100 {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 18px;
+}
+.assign-100 .pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.assign-100 .pct-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  margin-bottom: 8px;
+}
+.assign-100 .pct-desc { font-size: 13.5px; color: var(--text-muted); }
+
+.feedback-box {
+  background: var(--concept-bg);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 20px;
+  font-size: 13.5px;
+  color: var(--navy);
+  margin-bottom: 24px;
+}
+
+/* ── GRADE SCALE ── */
+.grade-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.grade-table thead tr { background: var(--navy); color: #fff; }
+.grade-table th { padding: 8px 14px; text-align: left; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.05em; font-weight: 500; }
+.grade-table td { padding: 7px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+.grade-table tr:nth-child(odd) td { background: var(--surface2); }
+
+/* ── RESOURCE GRID ── */
+.res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.res-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.res-cell {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.res-cell strong { display: block; color: var(--text); font-size: 13.5px; margin-bottom: 4px; }
+.res-cell span { color: var(--text-muted); font-size: 12.5px; line-height: 1.6; }
+
+/* ── CRISIS BOX ── */
+.crisis-box {
+  background: var(--note-bg);
+  border: 1px solid var(--note-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  color: var(--note-text);
+  margin-top: 12px;
+}
+
+/* ── POLICY BLOCK ── */
+.policy-block { margin-bottom: 20px; }
+.policy-block strong { display: block; color: var(--text); font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.policy-block p { font-size: 13.5px; }
+.policy-contact { font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 30px 22px 26px; }
+  .outcomes-grid { grid-template-columns: 1fr; }
+  .res-grid { grid-template-columns: 1fr; }
+  .res-grid-2 { grid-template-columns: 1fr; }
+  .week-cols { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">CSBS 445 &nbsp;·&nbsp; 2.0 Credits &nbsp;·&nbsp; 12-Week Quarter</div>
+    <h1>Introduction to Mobile Application Development</h1>
+    <p class="hero-sub">Dart &amp; Flutter &nbsp;·&nbsp; Online Synchronous &nbsp;·&nbsp; Fridays 4:00–5:50 PM &nbsp;·&nbsp; Instructor: Ms. Gill &nbsp;·&nbsp; dgill@clark.edu</p>
+    <div class="hero-chips">
+      <span class="hero-chip">📱 Flutter + Dart</span>
+      <span class="hero-chip">🗓 12 Weeks · 24 Contact Hours</span>
+      <span class="hero-chip">⏱ ~40 min concept + ~80 min lab</span>
+      <span class="hero-chip">🎯 First in a 3-course sequence</span>
+    </div>
+  </div>
+
+  <!-- ABOUT MS. GILL -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">👩‍🏫</span><span class="card-head-title">About Ms. Gill</span></div>
+    <div class="card-body">
+      <p>Welcome to CSBS 445! I'm happy to have you here and looking forward to another quarter of learning, experimenting, and building together.</p>
+      <p>My teaching philosophy revolves around staying connected to how adult learners engage with content and ensuring that learning is personalized to each individual's needs. Just like no two snowflakes are alike, every student brings a unique set of strengths, challenges, and learning preferences — and I design my courses with that in mind. I incorporate visual, auditory, and hands-on teaching strategies so that every learner has a genuine opportunity to succeed.</p>
+      <p>Every student learns differently, and I recognize that the same teaching approach may not work equally well for everyone. I try to incorporate different ways of explaining and practicing concepts — including visual explanations, live demonstrations, discussion, examples, and hands-on activities — so that there are multiple entry points into the material. If there is a particular approach that helps you engage more effectively, or you would simply like to talk about how you are experiencing the course, please feel free to schedule a one-on-one conversation with me. I will do my best to support your learning within the structure and requirements of the course.</p>
+      <p>If you have suggestions for improving course materials or simply want to talk about your learning experience, please reach out via <strong>Canvas message</strong>. I'm always open to feedback.</p>
+      <p>And if personal circumstances outside of class are affecting your performance, please don't hesitate to come talk to me. I'm here to support you.</p>
+      <p style="margin-bottom:16px;">I look forward to working with each of you this term!</p>
+      <div class="contact-box">
+        <strong>Contact &amp; Office</strong>
+        📧 dgill@clark.edu<br/>
+        🏫 Teaching Mode: Online – Synchronous<br/>
+        ⏱️ Day/Time: Every Friday from 4:00 PM to 5:50 PM<br/>
+        🏢 Office: STEM Building, Room 113<br/>
+        💬 Message me on Canvas anytime<br/>
+        ⏱️ I reply to all Canvas messages and emails within <strong>48 hours</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSE OVERVIEW -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">📱</span><span class="card-head-title">Course Overview</span></div>
+    <div class="card-body">
+      <p>This course introduces the concepts, opportunities, and challenges of mobile application development. Students learn to design, develop, test, and deploy mobile applications using the <strong>Dart programming language</strong> and the <strong>Flutter development environment</strong>. Every class session combines concept instruction with hands-on lab work — you will write real code every week.</p>
+      <p>This is the <strong>first course in a three-course mobile application development sequence</strong>. The emphasis here is on fundamentals and hands-on practice. Advanced topics — networking, databases, advanced state management — are covered in the later courses.</p>
+      <p><strong>Prerequisites:</strong> Grade of "C" or higher in CSE 223. Admission into the BS Computer Science program is required for enrollment.</p>
+      <p style="font-size:13px; margin-bottom:0;">Note: Students cannot receive credit for both CSE 445 and CSBS 445.</p>
+      <div class="chip-row">
+        <span class="chip">CSE 223 (C or higher)</span>
+        <span class="chip">BS CS Program Admission</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU'LL LEARN -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">🗺️</span><span class="card-head-title">What You'll Learn</span></div>
+    <div class="card-body">
+      <p style="margin-bottom:18px;">By the end of this course, students will be able to:</p>
+      <div class="outcomes-grid">
+        <div class="outcome-cell">
+          <span class="oc-label">Explain &amp; Design</span>
+          <p>› The mobile app development life cycle</p>
+          <p>› Mobile UI following Material Design</p>
+          <p>› Touch targets, screen constraints &amp; accessibility</p>
+          <p>› Responsive layouts for varying screen sizes</p>
+        </div>
+        <div class="outcome-cell">
+          <span class="oc-label">Implement</span>
+          <p>› Dart: types, null safety, functions, classes, List, Map</p>
+          <p>› Multi-screen Flutter apps with widgets &amp; layouts</p>
+          <p>› User input, form validation, setState</p>
+          <p>› Navigation between screens</p>
+        </div>
+        <div class="outcome-cell">
+          <span class="oc-label">Test, Debug &amp; Build</span>
+          <p>› Dart unit tests and Flutter widget tests</p>
+          <p>› Run and debug on Chrome and Android</p>
+          <p>› Debug vs. release builds</p>
+          <p>› Generate a release APK; understand app-store deployment</p>
+        </div>
+      </div>
+      <div class="mini-project-box">
+        <span class="mp-label">🎯 Final Mini-Project — Week 12</span>
+        Students build and present a complete 2–3 screen Flutter app demonstrating navigation, state management, a Dart model class, and at least one passing automated test. The app must run on a mobile target (Android emulator or physical device).
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW THE COURSE UNFOLDS -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">🛤️</span><span class="card-head-title">How the Course Unfolds</span></div>
+    <div class="card-body">
+      <p>Each class meets for approximately 2 hours — about 40 minutes of concept instruction followed by about 80 minutes of hands-on work. The roadmap below shows what we cover each week, what you will do in class, and when assignments are expected.</p>
+
+      <div class="tentative-notice">
+        <strong>📌 This is a tentative plan — everything below is subject to change.</strong> The order of topics, number and type of assignments, assessment formats, and all due dates may shift based on how the class progresses. I will communicate any changes clearly through Canvas with reasonable advance notice.
+      </div>
+
+      <!-- WEEK 1 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 1</span>
+          <span class="week-title">Mobile App Development Life Cycle</span>
+          <span class="week-tag tag-sdlc">SDLC</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Six SDLC stages: ideation, design, development, testing, deployment, maintenance</p>
+              <p>· How mobile development differs from web and desktop</p>
+              <p>· Mobile constraints: screen size, battery, touch input, connectivity, app store gatekeeping</p>
+              <p>· Where Flutter fits: one Dart codebase, multiple platform targets</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Choose a simple app idea and sketch it on paper (2–3 screens, name, target user)</p>
+              <p>· Map the idea through all six SDLC stages — what does each look like for your app?</p>
+              <p>· Brief share-out and class discussion</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Assignment:</strong> Paper app blueprint with SDLC mapping — submitted as a graded activity and kept for Week 12 reflection.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 2 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 2</span>
+          <span class="week-title">Development Environment + First Flutter App</span>
+          <span class="week-tag tag-flutter">Flutter</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Installing Flutter SDK and VS Code with the Flutter/Dart extension</p>
+              <p>· Chrome as the starting run target — faster setup, same Dart code</p>
+              <p>· Flutter project structure: <code>lib/</code>, <code>pubspec.yaml</code>, <code>main.dart</code></p>
+              <p>· What <code>flutter create</code> and <code>flutter run</code> do; the role of hot reload</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Install Flutter SDK + VS Code extensions (guided walkthrough)</p>
+              <p>· Run <code>flutter create my_first_app</code> and open in VS Code</p>
+              <p>· Run on Chrome; modify title, body text, and background color</p>
+              <p>· Observe hot reload; read <code>main.dart</code> and identify key components</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Assignment:</strong> Running Flutter app on Chrome with customized text, color, and icon — submitted as a graded activity.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 3 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 3</span>
+          <span class="week-title">Dart Fundamentals I — Types, Control Flow &amp; Null Safety</span>
+          <span class="week-tag tag-dart">Dart</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Variables: <code>var</code>, <code>final</code>, <code>const</code> — when to use each</p>
+              <p>· Core types: <code>int</code>, <code>double</code>, <code>String</code>, <code>bool</code> and type inference</p>
+              <p>· Control flow: <code>if/else</code>, <code>for</code> loops, <code>while</code> loops</p>
+              <p>· Null safety: <code>String</code> vs <code>String?</code>; the <code>??</code> operator; when to use <code>!</code> carefully</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On (DartPad)</span>
+              <p>· Temperature converter using typed functions</p>
+              <p>· Grade checker using an if/else ladder</p>
+              <p>· Nullable name function using <code>??</code> for a default value</p>
+              <p>· Multiplication table using a for loop</p>
+            </div>
+          </div>
+          <div class="assign-strip">📝 DartPad exercises completed in class. A graded assignment covering Weeks 3–4 material is due at the end of Week 4.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 4 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 4</span>
+          <span class="week-title">Dart Fundamentals II — Functions, Classes &amp; Collections</span>
+          <span class="week-tag tag-dart">Dart</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Functions: named parameters, return types, arrow syntax</p>
+              <p>· Classes: properties, methods, constructors with named parameters and <code>required</code></p>
+              <p>· Creating and using objects: <code>Student(name: 'Ana', major: 'CS', gpa: 3.8)</code></p>
+              <p>· <code>List&lt;T&gt;</code>: add, remove, iterate</p>
+              <p>· <code>Map&lt;K,V&gt;</code>: key-value storage and lookup</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On (DartPad)</span>
+              <p>· Define a <code>Student</code> class with named-parameter constructor</p>
+              <p>· Add an <code>isHonorsEligible()</code> method (gpa ≥ 3.5)</p>
+              <p>· Create a <code>List&lt;Student&gt;</code> and iterate to print each student</p>
+              <p>· Create a <code>Map&lt;String, String&gt;</code> of course codes to names; look up and print entries</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Assignment due this week:</strong> DartPad exercises covering Dart types, null safety (Week 3) and functions, classes, List, and Map (Week 4).</div>
+        </div>
+      </div>
+
+      <!-- WEEK 5 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 5</span>
+          <span class="week-title">Flutter Widgets &amp; Mobile UI Principles</span>
+          <span class="week-tag tag-flutter">Flutter · Design</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Everything in Flutter is a widget — understanding the widget tree</p>
+              <p>· StatelessWidget anatomy: build method and BuildContext</p>
+              <p>· Layout widgets: Column, Row, Container, Padding, SizedBox, Expanded</p>
+              <p>· Mobile screen constraints: phone dimensions, safe areas, notches</p>
+              <p>· Touch targets: minimum 48×48 logical pixels for interactive elements</p>
+              <p>· Material Design basics: typography, spacing, color roles; Semantics for accessibility</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Create a new Flutter project: <code>flutter create profile_card</code></p>
+              <p>· Build a profile card: CircleAvatar, name, title, bio using Column and Padding</p>
+              <p>· Apply a ThemeData color scheme in MaterialApp</p>
+              <p>· Add a Semantics label to the avatar (accessibility practice)</p>
+            </div>
+          </div>
+          <div class="assign-strip" style="margin-bottom:14px;">📝 Profile card is an in-class activity. The graded assignment for this unit is due at the end of Week 7.</div>
+        </div>
+      </div>
+
+      <!-- ANDROID PREP CALLOUT -->
+      <div class="android-prep">
+        <span class="ap-label">⚙️ Prepare Before Week 6 — Android Development Environment</span>
+        Week 6 is your first class running Flutter on a real mobile target. To make the most of that class time, please complete the following steps <strong>before Week 6</strong> using the setup guide posted on Canvas:<br/><br/>
+        · Run <code>flutter doctor</code> and review the output<br/>
+        · Verify that Android development tools are installed — Android Studio is used here only to support the Android SDK and emulator; it is not a course topic<br/>
+        · Create an Android Virtual Device (AVD) using AVD Manager, OR prepare a physical Android device with USB or wireless debugging enabled<br/>
+        · Try to resolve any major warnings before Week 6 — contact me on Canvas if you hit a blocking issue<br/><br/>
+        The goal in Week 6 is to spend class time <strong>running, comparing, and debugging your Flutter app on a mobile target</strong>. Students whose Android environment is not ready during class may continue in Chrome while troubleshooting separately.
+      </div>
+
+      <!-- WEEK 6 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 6</span>
+          <span class="week-title">Layouts, Responsive Design &amp; Running on Android</span>
+          <span class="week-tag tag-mobile">Flutter · Mobile</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Scaffold: AppBar, body, BottomNavigationBar — the standard Flutter app shell</p>
+              <p>· ListView and ListView.builder for scrollable content</p>
+              <p>· Responsive layout: Expanded and Flexible for varying screen widths</p>
+              <p>· Chrome vs Android: touch events, pixel density, safe-area insets — how execution differs on a real device</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Add Scaffold with AppBar and BottomNavigationBar to the profile card</p>
+              <p>· Add a ListView of 6 course tiles (icon, name, credits)</p>
+              <p>· Verify layout on Chrome, then switch to Android target with <code>flutter run</code></p>
+              <p>· Observe and fix any layout differences between Chrome and mobile</p>
+            </div>
+          </div>
+          <div class="assign-strip">📝 In-class lab. Graded assignment covering Weeks 5–7 is due at the end of Week 7.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 7 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 7</span>
+          <span class="week-title">User Input &amp; Touch-Friendly Forms</span>
+          <span class="week-tag tag-flutter">Flutter · Design</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· TextField and TextEditingController — reading user input</p>
+              <p>· ElevatedButton, TextButton, OutlinedButton — when to use each</p>
+              <p>· InputDecoration: labels, hints, error text</p>
+              <p>· Touch-friendly design: generous tap areas, keyboard types, TextInputAction</p>
+              <p>· Basic form validation: required fields, format checks, showing errors in the UI</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Build a login screen: email field + password field (<code>obscureText: true</code>) + Login button</p>
+              <p>· Validate: empty fields, email must contain '@'</p>
+              <p>· Show error text or a success message based on validation result</p>
+              <p>· Run on mobile target; confirm touch targets are comfortably sized</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Assignment due this week:</strong> Scrollable Scaffold app with profile card, ListView, and bottom nav — must run on Chrome and a mobile target (Android emulator or device).</div>
+        </div>
+      </div>
+
+      <!-- WEEK 8 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 8</span>
+          <span class="week-title">State Management with StatefulWidget and setState</span>
+          <span class="week-tag tag-flutter">Flutter</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Why StatelessWidget can't update — the problem setState solves</p>
+              <p>· The StatefulWidget two-class pattern (widget class + state class)</p>
+              <p>· How setState triggers a widget rebuild</p>
+              <p>· Lifting state up: when data needs to live above the widget that displays it</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Warm-up (15 min): Build a counter with + and − buttons using setState</p>
+              <p>· Main activity: Build a to-do list — TextField + Add button appends to a <code>List&lt;String&gt;</code></p>
+              <p>· Display with ListView.builder; add a delete button per item</p>
+              <p>· Show an empty-state message when the list has no items</p>
+            </div>
+          </div>
+          <div class="assign-strip">📝 In-class lab. Graded assignment covering Weeks 8–9 is due at the end of Week 9.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 9 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 9</span>
+          <span class="week-title">Navigation &amp; Passing Data Between Screens</span>
+          <span class="week-tag tag-flutter">Flutter</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Navigator as a stack: push adds a screen, pop removes it</p>
+              <p>· MaterialPageRoute — wrapping a widget as a routable destination</p>
+              <p>· Named routes: defining a route map in MaterialApp</p>
+              <p>· Passing data between screens via widget constructors; Android system back vs AppBar back arrow</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Add a detail screen to the Week 8 to-do list app</p>
+              <p>· Tapping a to-do item navigates to the detail page with the item's text</p>
+              <p>· Register both screens as named routes in MaterialApp</p>
+              <p>· Confirm AppBar back arrow and Android system back button both work</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Assignment due this week:</strong> To-do list app with add/delete (setState) and a working 2-screen navigation with named routes and data passing.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 10 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 10</span>
+          <span class="week-title">Data Models, Collections &amp; Unit Testing</span>
+          <span class="week-tag tag-testing">Dart · Testing</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Model class pattern: a plain Dart class that represents one record</p>
+              <p>· <code>List&lt;Model&gt;</code> as in-memory data — not persistent storage</p>
+              <p>· ListView.builder with a typed model list</p>
+              <p>· Why automated testing matters: catch regressions, document behavior</p>
+              <p>· Anatomy of a Dart unit test: <code>test()</code>, <code>expect()</code>, <code>equals()</code>; running with <code>flutter test</code></p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Create a <code>Course</code> model class with named-parameter constructor (title, credits, description)</p>
+              <p>· Define a <code>List&lt;Course&gt;</code> with 6 entries in-memory</p>
+              <p>· Display with ListView.builder; each card navigates to a detail screen</p>
+              <p>· In the <code>test/</code> folder, write 2 unit tests; run with <code>flutter test</code> and review output</p>
+            </div>
+          </div>
+          <div class="assign-strip">📝 In-class activity. Graded assignment covering testing (Weeks 10–11) is due at the end of Week 11.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 11 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">Week 11</span>
+          <span class="week-title">Widget Testing + Final Mini-Project Workshop</span>
+          <span class="week-tag tag-project">Testing · Project</span>
+        </div>
+        <div class="week-body">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· What a Flutter widget test does: pumps a widget, finds elements, simulates taps</p>
+              <p>· Key tools: <code>WidgetTester</code>, <code>find.text()</code>, <code>find.byType()</code>, <code>tester.tap()</code></p>
+              <p>· Widget test vs unit test — what each covers</p>
+              <p>· Final mini-project requirements review and peer feedback norms</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Write 1 widget test for the to-do app: verify title appears, enter text, tap Add, confirm item shows</p>
+              <p>· Run <code>flutter test</code> and confirm it passes</p>
+              <p>· In-class project build session — work on the final mini-project</p>
+              <p>· Peer check: does the app run on a mobile target? Does <code>flutter test</code> pass?</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Assignment due this week:</strong> Course catalog app with at least 2 passing unit tests + 1 passing widget test — all confirmed via <code>flutter test</code>.</div>
+        </div>
+      </div>
+
+      <!-- WEEK 12 -->
+      <div class="week-card" style="border-color: var(--blue-mid);">
+        <div class="week-head" style="background: linear-gradient(135deg, var(--navy), var(--blue));">
+          <span class="week-num" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);">Week 12</span>
+          <span class="week-title">Release Build, Deployment Concepts &amp; Final Presentations</span>
+          <span class="week-tag tag-sdlc">SDLC · Project</span>
+        </div>
+        <div class="week-body" style="background: var(--concept-bg);">
+          <div class="week-cols">
+            <div class="week-col">
+              <span class="col-label concept">💡 Concepts</span>
+              <p>· Debug vs. release builds: size, performance, what changes</p>
+              <p>· What an APK is and how it gets onto an Android device</p>
+              <p>· Generating a release APK: <code>flutter build apk --release</code></p>
+              <p>· Signing and versioning: conceptual overview of why apps need a signature</p>
+              <p>· App store deployment overview: Google Play and Apple App Store steps (concept only)</p>
+            </div>
+            <div class="week-col">
+              <span class="col-label lab">💻 Hands-On</span>
+              <p>· Instructor demo: <code>flutter build apk --release</code> on the course catalog app</p>
+              <p>· Students attempt <code>flutter build apk --release</code> on their own mini-project</p>
+              <p>· Final project demos: 2–5 minutes per student depending on class size — show the app running, at least 2 screens, navigation, a live state change, and a passing test</p>
+              <p>· Group SDLC reflection: which stages did your project touch? Connects back to the Week 1 blueprint.</p>
+            </div>
+          </div>
+          <div class="assign-strip highlight">📝 <strong>Final Mini-Project submitted on Canvas before class begins.</strong> Requirements: 2–3 screens, Navigator, StatefulWidget + setState, a Dart model class, List/Map, at least one passing automated test, runs on a mobile target.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COURSE AT A GLANCE -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">📅</span><span class="card-head-title">Course at a Glance</span></div>
+    <div class="card-body">
+      <p style="margin-bottom:16px; font-size:13px;">Quick reference — see the weekly roadmap above for full details.</p>
+      <table class="glance-table">
+        <thead><tr><th>Wk</th><th>Topic</th><th>Assignment / Note</th></tr></thead>
+        <tbody>
+          <tr><td class="wk-num">1</td><td>Mobile App Development Life Cycle</td><td>Graded Activity — App blueprint</td></tr>
+          <tr><td class="wk-num">2</td><td>Dev Environment + First Flutter App</td><td>Graded Activity — Hello Flutter</td></tr>
+          <tr><td class="wk-num">3</td><td>Dart: Types, Control Flow &amp; Null Safety</td><td>DartPad exercises (in class)</td></tr>
+          <tr><td class="wk-num">4</td><td>Dart: Functions, Classes &amp; Collections</td><td class="wk-due">Graded Assignment due</td></tr>
+          <tr><td class="wk-num">5</td><td>Flutter Widgets &amp; Mobile UI Principles</td><td>Profile card lab &nbsp;·&nbsp; ⚙️ <em>Android setup due before Week 6</em></td></tr>
+          <tr><td class="wk-num">6</td><td>Layouts, Responsive Design &amp; Running on Android</td><td>Scaffold + ListView lab (mobile run)</td></tr>
+          <tr><td class="wk-num">7</td><td>User Input &amp; Touch-Friendly Forms</td><td class="wk-due">Graded Assignment due</td></tr>
+          <tr><td class="wk-num">8</td><td>State Management with setState</td><td>To-do list lab</td></tr>
+          <tr><td class="wk-num">9</td><td>Navigation &amp; Passing Data Between Screens</td><td class="wk-due">Graded Assignment due</td></tr>
+          <tr><td class="wk-num">10</td><td>Data Models, Collections &amp; Unit Testing</td><td>Course catalog + unit tests</td></tr>
+          <tr><td class="wk-num">11</td><td>Widget Testing + Mini-Project Workshop</td><td class="wk-due">Graded Assignment due</td></tr>
+          <tr><td class="wk-num">12</td><td>Release Build, Deployment &amp; Final Presentations</td><td class="wk-due">🎤 Final Mini-Project due + demo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GRADING -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">📊</span><span class="card-head-title">Grading Policy</span></div>
+    <div class="card-body">
+      <div class="tentative-notice" style="margin-top:0;">
+        <strong>📌 Tentative:</strong> The number, format, point value, and due dates of assignments may vary throughout the quarter and will be communicated through Canvas. I will always give you clear notice before any change takes effect.
+      </div>
+      <div class="assign-100">
+        <span class="pct">100%</span>
+        <span class="pct-label">Assignments</span>
+        <span class="pct-desc">All graded work in this course falls under a single category: Assignments. Your course grade is calculated from the total points earned across all graded assignments relative to the total points available. Assignments may include programming exercises, labs, quizzes, discussions, readings, testing activities, projects, demonstrations, reflections, and other activities designed to assess course learning outcomes. Anything designated as a graded assignment in Canvas contributes to your course grade according to its assigned point value.</span>
+      </div>
+      <div class="feedback-box">
+        ⏱️ <strong>Grading Feedback:</strong> You will receive written feedback on all graded assignments within <strong>4 days of the submission deadline</strong>. If you have questions about a grade or comment, please reach out via Canvas message within one week of receiving feedback.
+      </div>
+      <p style="font-weight:600; color:var(--text); font-size:13.5px; margin-bottom:12px;">Grading Scale — Clark Standard</p>
+      <table class="grade-table">
+        <thead><tr><th>Letter Grade</th><th>Range</th><th>Letter Grade</th><th>Range</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>93% – 100%</td><td>C+</td><td>77% – &lt;80%</td></tr>
+          <tr><td>A-</td><td>90% – &lt;93%</td><td>C</td><td>73% – &lt;77%</td></tr>
+          <tr><td>B+</td><td>87% – &lt;90%</td><td>C-</td><td>70% – &lt;73%</td></tr>
+          <tr><td>B</td><td>83% – &lt;87%</td><td>D+</td><td>67% – &lt;70%</td></tr>
+          <tr><td>B-</td><td>80% – &lt;83%</td><td>D</td><td>63% – &lt;67%</td></tr>
+          <tr><td></td><td></td><td>D-</td><td>60% – &lt;63%</td></tr>
+          <tr><td></td><td></td><td>F</td><td>&lt;60%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RESOURCES & SUPPORT -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">🛟</span><span class="card-head-title">Resources &amp; Support Services</span></div>
+    <div class="card-body">
+      <span class="section-label" style="color:var(--blue-mid);">Technical Support</span>
+      <div class="res-grid" style="margin-bottom:20px;">
+        <div class="res-cell"><strong>Tech Hub</strong><span>Help with Canvas, Clark Gmail, Office apps, and passwords.<br/>Scarpelli Hall 135 · techhub@clark.edu · 360-992-2010</span></div>
+        <div class="res-cell"><strong>ABT Center</strong><span>Student tech support for Canvas, Gmail, Google, Office Suite — via Zoom or in-person, no appointment needed.<br/>Applied Arts 4, Room 106 · 360-992-2445</span></div>
+        <div class="res-cell"><strong>Canvas Help</strong><span>Click "Help" in Canvas → "Report a Problem" to submit a tech ticket. Also try "Search the Canvas Guides."</span></div>
+      </div>
+      <span class="section-label" style="color:var(--blue-mid);">Academic Support</span>
+      <div class="res-grid" style="margin-bottom:20px;">
+        <div class="res-cell"><strong>Student Success Coaches</strong><span>One-on-one coaching for study skills, organization, and personal support. PUB 002 or Zoom.</span></div>
+        <div class="res-cell"><strong>Tutoring Services</strong><span>FREE individualized tutoring for most Clark courses — in-person, virtual, by appointment or drop-in. Also: eTutoringOnline.org (link in Canvas).</span></div>
+        <div class="res-cell"><strong>Clark College Librarians</strong><span>One-on-one help with research and citations. Visit the library or chat online.</span></div>
+      </div>
+      <span class="section-label" style="color:var(--blue-mid);">Student Wellbeing &amp; Basic Needs</span>
+      <div class="res-grid" style="margin-bottom:12px;">
+        <div class="res-cell"><strong>Student Wellness Center</strong><span>Physical and mental health services supporting wellness and academic success. Committed to social equity and inclusion.</span></div>
+        <div class="res-cell"><strong>Penguin Pantry &amp; Basic Needs Hub</strong><span>Help with food, housing, and financial challenges. Gaiser Hall, Room 216 · basicneeds@clark.edu · 360-992-2766</span></div>
+        <div class="res-cell"><strong>Office of Diversity, Equity &amp; Inclusion</strong><span>Supports systemically non-dominant groups. Everyone is welcome at the Diversity Center.</span></div>
+      </div>
+      <div class="crisis-box">
+        🚨 <strong>Safety &amp; Crisis Resources:</strong> If you are having a mental health crisis or thoughts of suicide, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline, 24/7) or the Clark County Crisis Line: <strong>1-800-626-8137</strong>. For campus emergencies, call Security at <strong>360-992-2133</strong>, use the Rave Guardian app, or call 911.
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLEGE POLICIES -->
+  <div class="card">
+    <div class="card-head"><span class="card-head-icon">📋</span><span class="card-head-title">College Policies</span></div>
+    <div class="card-body">
+      <div class="policy-block">
+        <strong>ADA Accommodations</strong>
+        <p>Clark College's Disability Access Center (DAC) coordinates accommodations for students with disabilities and/or temporary health conditions. All accommodations must first be approved through DAC. If you believe you may need accommodations, contact DAC as soon as possible. Once accommodations are established, please contact me to discuss your needs in this course. Remember to request accommodations each term in myAccess. Exams at DAC require at least 5 business days' notice.</p>
+        <p class="policy-contact">Disability Access Center · 📞 360-992-2314 · VP (ASL): 360-991-0901 · 📧 dac@clark.edu · 📍 PUB 002</p>
+      </div>
+      <div class="policy-block">
+        <strong>Non-Discrimination Policy</strong>
+        <p>Clark College expressly prohibits discrimination on the basis of race, color, national origin, age, disability, pregnancy, genetic information, sex, sexual orientation, gender identity, marital status, creed, religion, veteran or military status, citizenship, immigration status, or use of a trained guide dog or service animal. Harassment is a form of discrimination.</p>
+        <p class="policy-contact">Office of People and Culture · Baird Hall 133 · 📞 360-992-2105 · 📧 opc@clark.edu</p>
+      </div>
+      <div class="policy-block">
+        <strong>Title IX &amp; Sexual Misconduct</strong>
+        <p>Clark College is committed to helping individuals achieve their educational and professional goals in a community free from sexual misconduct. If you or someone you care about has been impacted, you are not alone — support, options, and resources are available. Contact the Student Wellness/Counseling and Health Center for confidential support.</p>
+      </div>
+      <div class="policy-block">
+        <strong>Student Rights &amp; Responsibilities</strong>
+        <p>Students have the right to freedom of access to education, absence for reasons of faith or conscience, FERPA protections, and more. Requests for faith-based absences must be made within the first two weeks of the quarter — please reach out to me directly and I am happy to support you.</p>
+      </div>
+      <div class="policy-block" style="margin-bottom:16px;">
+        <strong>Code of Student Conduct</strong>
+        <p>Clark College believes everyone deserves to learn, work, and participate in a community where they feel welcome, respected, and supported. The Code of Student Conduct describes shared expectations for behavior that support a safe, inclusive, and respectful college community. Please review it on the Clark website.</p>
+      </div>
+      <div class="res-grid-2">
+        <div class="res-cell"><strong>Career Services</strong><span>Resources and strategies to support your career and employment goals.<br/>📞 360-992-2902 · 📧 careerservices@clark.edu</span></div>
+        <div class="res-cell"><strong>Veterans Center of Excellence</strong><span>Serving U.S. military service members with resources, community, and support.<br/>PUB 015 · 📞 360-992-2073 · 📧 Vetresources@clark.edu</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Clark College &nbsp;·&nbsp; Department of Computer Science &amp; Engineering &nbsp;·&nbsp; CSBS 445 — Introduction to Mobile Application Development &nbsp;·&nbsp; dgill@clark.edu
+  </div>
+
+</div>
+</body>
+</html>
