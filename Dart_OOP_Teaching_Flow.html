@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching Flow – Dart Classes, Objects &amp; Constructors</title>
+<style>
+:root{--ink:#1d2733;--muted:#5b6876;--blue:#0175c2;--blue-d:#01579b;--line:#dde3ea;--soft:#f3f7fb;--card:#fff;--bg:#f6f8fa;
+--g:#2b8a3e;--gbg:#ebfbee;--r:#c92a2a;--rbg:#fff5f5;--y:#8a6d00;--ybg:#fff8e1;--code:#1f2630;--codet:#f1f5f9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:960px;margin:28px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+header{padding:32px 40px;background:linear-gradient(120deg,#e8f3fc,#f4f8fc);border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12.5px;letter-spacing:1.8px;text-transform:uppercase;font-weight:700;color:var(--blue)}
+h1{font-size:32px;line-height:1.2;margin:10px 0 8px}
+header p{margin:6px 0;max-width:760px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.meta span{background:#fff;border:1px solid #cfe1f1;border-radius:20px;padding:3px 12px;font-size:13.5px}
+.wrap{padding:8px 40px 32px}
+section{margin:28px 0}
+h2{font-size:22px;color:var(--blue-d);margin:0 0 10px}
+h3{font-size:17px;margin:0 0 6px}
+.quote{border-left:4px solid var(--blue);background:var(--soft);padding:14px 18px;border-radius:0 10px 10px 0;font-size:17px}
+.flow{list-style:none;padding:0;margin:0;counter-reset:s}
+.flow>li{position:relative;padding:16px 18px 16px 64px;border:1px solid var(--line);border-radius:12px;margin:12px 0;background:#fff}
+.flow>li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:grid;place-items:center}
+.when{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
+.flow ul{margin:6px 0 0;padding-left:20px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--soft)}
+.tile b{display:block;font-size:24px;color:var(--blue-d)}
+.note{background:var(--ybg);border:1px solid #f0dfa6;border-radius:10px;padding:12px 16px;font-size:15px}
+pre{background:var(--code);color:var(--codet);padding:14px;border-radius:10px;overflow-x:auto;font:14px/1.5 SFMono-Regular,Consolas,Menlo,monospace}
+code{font-family:SFMono-Regular,Consolas,Menlo,monospace}
+.q{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.q pre{background:#f4f6f8!important;color:var(--ink);border:1px solid #ddd}
+.q label{display:block;padding:7px 10px;border:1px solid var(--line);border-radius:8px;margin:6px 0;cursor:pointer}
+.q label:hover{background:var(--soft)}
+.qbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px}
+button{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 18px;font-size:15px;cursor:pointer}
+button:disabled{background:#9fb3c4;cursor:not-allowed}
+.att{font-size:14px;color:var(--muted)}
+.fb{margin-top:10px;padding:10px 14px;border-radius:8px;display:none}
+.fb.ok{display:block;background:var(--gbg);border:1px solid #b2e2bd}
+.fb.bad{display:block;background:var(--rbg);border:1px solid #f1c0c0}
+.topics{columns:3;font-size:14.5px;padding-left:20px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:10px}
+summary{cursor:pointer;font-weight:600}
+.tag{display:inline-block;background:#fdecc8;color:#7a4b00;border-radius:6px;padding:2px 8px;font-size:12.5px;font-weight:700;letter-spacing:.4px}
+footer{padding:16px 40px;background:var(--soft);border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+@media(max-width:720px){main{margin:0;border-radius:0}header,.wrap{padding:20px 16px}footer{padding:16px}h1{font-size:26px}.grid{grid-template-columns:1fr}.topics{columns:1}.flow>li{padding-left:58px}}
+@media print{body{background:#fff}main{border:0;margin:0}.q,.flow>li,.tile{break-inside:avoid}button{display:none}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="eyebrow">Teaching Documentation · Synchronous Remote (Zoom) Class</div>
+  <h1>My Teaching Flow for a Topic: Dart Classes, Objects &amp; Constructors</h1>
+  <p>This page documents how I teach a new topic in my Zoom class, using the Week 4 Dart object-oriented programming lesson as the example. Depending on class time, these steps take place across one or two class sessions.</p>
+  <div class="meta"><span>Week 4 · Fall 2026</span><span>Introduction to Mobile Application (Dart / Flutter)</span><span>Instructor: Prof. Dimpy Gill</span><span>TAP 1.2.3 · 1.2.1</span></div>
+</header>
+<div class="wrap">
+
+<section>
+  <p class="quote">“The main focus is not earning points — it is earning knowledge.” Students work without pressure, learn from detailed feedback, and try again.</p>
+</section>
+
+<section>
+  <h2>Learning objectives</h2>
+  <ul>
+    <li>Define a class and create objects from it.</li>
+    <li>Store object data in fields and write methods to perform actions.</li>
+    <li>Use traditional methods, arrow methods and getters.</li>
+    <li>Initialize objects using standard, shorthand and named constructors.</li>
+    <li>Understand initializer lists, privacy and constructor errors.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>The teaching flow</h2>
+  <ol class="flow">
+    <li><span class="when">Before class</span><h3>Materials shared in advance</h3>
+      The lecture slides and an interactive tutorial on Dart classes and constructors were posted to Canvas before class, so students could preview the topic and return to it afterwards.
+      <ul><li>Slides: <em>Dart Classes, Objects &amp; Constructors</em> (35 slides)</li><li>Tutorial: <em>Dart OOP Concepts</em> — written for students coming from C# or Java, with practice questions and a quick check</li></ul></li>
+    <li><span class="when">In class · Zoom</span><h3>Concept explanation with slides</h3>
+      I explained each concept using a consistent <strong>Concept → Code → Output → Explanation</strong> pattern: classes and objects, fields and methods, arrow methods and getters, standard and shorthand constructors, final fields and initializer lists, privacy with <code>_</code>, named constructors, and common constructor errors.</li>
+    <li><span class="when">In class · Zoom breakout rooms</span><h3>Formative quiz with two attempts and detailed feedback</h3>
+      Students took a 30-question formative quiz right after the explanation, each in their own breakout room with their <strong>screen shared</strong>.
+      <ul>
+        <li><strong>Two attempts.</strong> After each attempt, students see detailed feedback explaining the correct answer, so the second attempt becomes a learning step, not a guess.</li>
+        <li><strong>Low pressure.</strong> Because the quiz comes immediately after the lecture, information may not be retained at once. I tell students I will reopen the quiz if they need another attempt to reach full understanding.</li>
+        <li><strong>Live support.</strong> I move between breakout rooms at random, see each student’s screen, answer questions and explain concepts one-on-one, and keep track of everyone’s progress.</li>
+      </ul></li>
+    <li><span class="when">Applied practice · next step in my flow</span><h3>Hands-on project</h3>
+      In my usual teaching flow, students next apply the concepts in a small programming project. A sample practice project for this topic is shown below.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>The formative quiz at a glance</h2>
+  <div class="grid">
+    <div class="tile"><b>30</b>multiple-choice questions, each with a short Dart code example</div>
+    <div class="tile"><b>2</b>attempts, with detailed answer feedback after each attempt</div>
+    <div class="tile"><b>Zoom</b>taken in individual breakout rooms with screens shared</div>
+  </div>
+  <h3 style="margin-top:16px">Concepts covered</h3>
+  <ol class="topics"><li>Class and object</li><li>Object fields</li><li>Method call</li><li>Method return</li><li>Arrow method</li><li>Getter</li><li>Getter mistake</li><li>Constructor body</li><li>Constructor name</li><li>Initializing formal</li><li>Missing constructor</li><li>Default constructor</li><li>Named constructor</li><li>Named constructor call</li><li>Initializer list</li><li>Final field</li><li>Private naming</li><li>Privacy scope</li><li>Constructor vs method</li><li>Constructor nesting</li><li>Constructor overloading</li><li>Optional constructor argument</li><li>Named parameter</li><li>Missing required named parameter</li><li>Initializer expression</li><li>Method versus getter</li><li>Field initialization</li><li>Named vs positional</li><li>Constructor initializer and body</li><li>Method error</li></ol>
+</section>
+
+<section>
+  <h2>Try three sample questions</h2>
+  <p>These are taken from the actual quiz. As in Canvas, you get two attempts per question and see detailed feedback after each one.</p>
+  <div id="quiz"></div>
+</section>
+
+<section>
+  <h2>Sample practice project: Library Book Tracker</h2>
+  <p class="note"><span class="tag">SAMPLE</span> This practice project was prepared for this documentation to illustrate the applied-practice step for this topic. It is not the project used in the Week 4 class session.</p>
+  <h3>Task</h3>
+  <p>Create a <code>Book</code> class for a small library and test it in <code>main()</code>.</p>
+  <table>
+    <tr><th>Requirement</th><th>Concept practised</th></tr>
+    <tr><td>Fields <code>title</code>, <code>author</code> and <code>totalCopies</code> that cannot change after creation</td><td>Final fields</td></tr>
+    <tr><td>A private field <code>_available</code> with a public getter <code>available</code></td><td>Privacy, getters</td></tr>
+    <tr><td>Constructor <code>Book(this.title, this.author, this.totalCopies)</code> that sets <code>_available</code> to <code>totalCopies</code></td><td>Shorthand constructor, initializer list</td></tr>
+    <tr><td>Named constructor <code>Book.reference(title, author)</code> for a single-copy book</td><td>Named constructors</td></tr>
+    <tr><td>Methods <code>checkOut()</code> (returns <code>false</code> if none are left) and <code>returnCopy()</code></td><td>Methods that change object state</td></tr>
+    <tr><td>Getter <code>isAvailable</code> and arrow method <code>summary()</code></td><td>Getters vs. methods, arrow syntax</td></tr>
+    <tr><td>In <code>main()</code>, create two books (one with each constructor), check copies out and back in, and print the results</td><td>Creating and using objects</td></tr>
+  </table>
+  <h3 style="margin-top:14px">Expected output</h3>
+<pre>Dart Basics by A. Rivera: 3 of 3 available
+Dart Basics by A. Rivera: 1 of 3 available
+true
+false
+false
+1</pre>
+  <details><summary>Reference solution</summary>
+<pre><code>class Book {
+  final String title;      // set once per object
+  final String author;
+  final int totalCopies;
+  int _available;          // library-private field
+
+  // Shorthand constructor + initializer list
+  Book(this.title, this.author, this.totalCopies) : _available = totalCopies;
+
+  // Named constructor: a single-copy reference book
+  Book.reference(this.title, this.author) : totalCopies = 1, _available = 1;
+
+  int get available =&gt; _available;          // getter (no parentheses)
+  bool get isAvailable =&gt; _available &gt; 0;
+
+  bool checkOut() {                         // method that changes state
+    if (_available == 0) return false;
+    _available--;
+    return true;
+  }
+
+  void returnCopy() {
+    if (_available &lt; totalCopies) _available++;
+  }
+
+  String summary() =&gt; &#x27;$title by $author: $_available of $totalCopies available&#x27;;
+}
+
+void main() {
+  var guide = Book(&#x27;Dart Basics&#x27;, &#x27;A. Rivera&#x27;, 3);
+  var handbook = Book.reference(&#x27;Flutter Handbook&#x27;, &#x27;K. Chen&#x27;);
+
+  print(guide.summary());      // Dart Basics by A. Rivera: 3 of 3 available
+  guide.checkOut();
+  guide.checkOut();
+  print(guide.summary());      // Dart Basics by A. Rivera: 1 of 3 available
+
+  print(handbook.checkOut());  // true
+  print(handbook.checkOut());  // false (no copies left)
+  print(handbook.isAvailable); // false
+  handbook.returnCopy();
+  print(handbook.available);   // 1
+}</code></pre></details>
+</section>
+
+<section>
+  <h2>Why this flow works</h2>
+  <table>
+    <tr><th>Practice</th><th>Benefit for students</th></tr>
+    <tr><td>Materials shared before class</td><td>Students can preview, review at their own pace and catch up if they miss a session.</td></tr>
+    <tr><td>Two attempts with detailed feedback, reopened on request</td><td>Mistakes become learning moments; every student gets a fair chance to reach full understanding without grade pressure.</td></tr>
+    <tr><td>Individual breakout rooms with screen sharing</td><td>In a remote class, I can see each student’s work, give one-on-one help and identify who needs support.</td></tr>
+    <tr><td>Concept → Code → Output → Explanation</td><td>A predictable structure that connects each idea to working code.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Materials</h2>
+  <ul>
+    <li>Lecture slides: <a href="1._Dart_Classes_Objects_Constructors.pptx">Dart Classes, Objects &amp; Constructors (PowerPoint)</a></li>
+    <li>Tutorial: <a href="2._Dart_OOP_Classes_Constructors.html">Dart OOP Concepts — Classes &amp; Constructors</a></li>
+    <li>Formative quiz: <em>Dart OOP Foundations — Formative Learning Quiz</em> (30 questions, Canvas)</li>
+  </ul>
+</section>
+</div>
+<footer>Prof. Dimpy Gill · Department of Computer Science &amp; Engineering, Clark College · Documentation for Tenure Achievement Plan Objectives 1.2.3 (teaching across modalities) and 1.2.1 (interactive and equity-minded learning strategies).</footer>
+</main>
+<script>
+const QS = [{"title": "Q06 \u2014 Getter", "html": "<p><strong>Getter</strong></p><pre style='white-space:pre-wrap;background:#f4f6f8;padding:12px;border:1px solid #ddd'><code>class Square {\n  int side = 4;\n  int get area =&gt; side * side; // Getter, not a method call\n}\nvoid main() { print(Square().area); }</code></pre><p><strong>What happens?</strong></p>", "choices": [["6001", "Prints 16"], ["6002", "Prints 4"], ["6003", "Fails because area needs ()"], ["6004", "Prints null"]], "correct": "6001", "ok": "<p><strong>Correct.</strong> A getter is accessed without parentheses. It calculates 4 \u00d7 4 = 16.</p><p><strong>Correct answer:</strong> Prints 16</p>", "bad": "<p><strong>Review this concept.</strong> A getter is accessed without parentheses. It calculates 4 \u00d7 4 = 16.</p><p><strong>Correct answer:</strong> Prints 16</p>"}, {"title": "Q11 \u2014 Missing constructor", "html": "<p><strong>Missing constructor</strong></p><pre style='white-space:pre-wrap;background:#f4f6f8;padding:12px;border:1px solid #ddd'><code>class Person {\n  String name;\n  Person(this.name); // One positional argument required\n}\nvoid main() { var p = Person(); } // No argument</code></pre><p><strong>Is the program valid?</strong></p>", "choices": [["11001", "Yes, name becomes empty"], ["11002", "Yes, Dart adds Person()"], ["11003", "No, Person requires one argument"], ["11004", "No, this.name is never valid"]], "correct": "11003", "ok": "<p><strong>Correct.</strong> The explicitly declared constructor requires one positional String. Dart does not generate a separate zero-argument constructor.</p><p><strong>Correct answer:</strong> No, Person requires one argument</p>", "bad": "<p><strong>Review this concept.</strong> The explicitly declared constructor requires one positional String. Dart does not generate a separate zero-argument constructor.</p><p><strong>Correct answer:</strong> No, Person requires one argument</p>"}, {"title": "Q13 \u2014 Named constructor", "html": "<p><strong>Named constructor</strong></p><pre style='white-space:pre-wrap;background:#f4f6f8;padding:12px;border:1px solid #ddd'><code>class ColorBox {\n  String color;\n  ColorBox(this.color); // Unnamed constructor\n  ColorBox.red() : color = &#x27;red&#x27;; // Named constructor\n}\nvoid main() { print(ColorBox.red().color); }</code></pre><p><strong>What is printed?</strong></p>", "choices": [["13001", "red"], ["13002", "ColorBox"], ["13003", "null"], ["13004", "Compile-time error"]], "correct": "13001", "ok": "<p><strong>Correct.</strong> ColorBox.red() is a named constructor and its initializer sets color to red.</p><p><strong>Correct answer:</strong> red</p>", "bad": "<p><strong>Review this concept.</strong> ColorBox.red() is a named constructor and its initializer sets color to red.</p><p><strong>Correct answer:</strong> red</p>"}];
+const root = document.getElementById('quiz');
+QS.forEach((q, i) => {
+  const box = document.createElement('div'); box.className = 'q';
+  let opts = q.choices.map(c => `<label><input type="radio" name="s${i}" value="${c[0]}"> ${c[1]}</label>`).join('');
+  box.innerHTML = `<div class="att"><strong>Question ${i+1}</strong> · ${q.title.split('—')[1].trim()}</div>${q.html}${opts}
+    <div class="qbar"><button type="button">Check answer</button><span class="att">Attempts left: <b>2</b></span></div><div class="fb"></div>`;
+  let left = 2;
+  const btn = box.querySelector('button'), att = box.querySelector('.att b'), fb = box.querySelector('.fb');
+  btn.addEventListener('click', () => {
+    const sel = box.querySelector('input:checked');
+    if (!sel) { fb.className = 'fb bad'; fb.innerHTML = 'Please choose an answer first.'; return; }
+    left--; att.textContent = left;
+    const ok = sel.value === q.correct;
+    fb.className = 'fb ' + (ok ? 'ok' : 'bad');
+    fb.innerHTML = ok ? q.ok : q.bad + (left > 0 ? '<p>Read the explanation, then try again.</p>' : '<p>No attempts left. In class, I reopen the quiz for students who need another try.</p>');
+    if (ok || left === 0) { btn.disabled = true; box.querySelectorAll('input').forEach(x => x.disabled = true); }
+  });
+  root.appendChild(box);
+});
+</script>
+</body>
+</html>
